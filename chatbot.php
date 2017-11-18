@@ -5,7 +5,7 @@ $dbconn = pg_pconnect($conn_string);
 
 ##############################################################################
 
-$access_token = 'eBp/ZVsDsV2fMTqSBYGq4pgOvc+sgaPxxJFeT/rvpT/WTLiyw44BA2co2RBVROiLPVr8EEMrdiJ2I5cKWBe+j+GhNrHu6FUEHyol1dGf8DM/ZykdR84RgfTU2p+3U9NnhjqhWkDrN0tQT56rf23TxQdB04t89/1O/w1cDnyilFU=';
+$access_token = 'PeZqsLFQQT/OLTY72fykPCuiSBmU0rwm4McbwCWBeb71ubSjLSZUqh94k9d9ZYQUv6CpfPYSw2hjo3aM4ZSD1lf4MPmXWOFbpNexsPylbQX82wHDqRYCiXmfDNzXyKaoZrxZHPLvrL96JwWQceorwgdB04t89/1O/w1cDnyilFU=';
 
 $content = file_get_contents('php://input');
 // Parse JSON
