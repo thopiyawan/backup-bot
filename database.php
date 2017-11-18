@@ -1,5 +1,5 @@
 <?php  
-$conn_string = "host=ec2-54-221-207-192.compute-1.amazonaws.com port=5432 dbname=ddarslmntab2u0 user=uuwabnobyyrnfe password=4d97f0b4150eb402dcfbd772910d388e127285bd85f3efea6184fe42da856142 ";
+$conn_string = "host=ec2-54-163-237-25.compute-1.amazonaws.com port=5432 dbname=d1hg7bc7c04gq7 user=tugnvuarplwkmx password=003593e213a5b062c4938ddd79394447d1997095a863f42d02fcafbe38c271bd ";
 $dbconn = pg_pconnect($conn_string);
 if (!$dbconn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -8,18 +8,18 @@ if (!$dbconn) {
 ########################CREATE TABLE #######################################################
 
 
-// $sql="CREATE TABLE sequents(
-// id SERIAL,
-// seqcode varchar(255),
-// question varchar(255),
-// answer varchar(255),
-// nexttype integer,
-// nextseqcode varchar(255),
-// created_at timestamp,
-// updated_at timestamp,
-// PRIMARY KEY(id)
-// )";   
-// pg_exec($dbconn, $sql) or die(pg_errormessage());
+$sql="CREATE TABLE sequents(
+id SERIAL,
+seqcode varchar(255),
+question varchar(255),
+answer varchar(255),
+nexttype integer,
+nextseqcode varchar(255),
+created_at timestamp,
+updated_at timestamp,
+PRIMARY KEY(id)
+)";   
+pg_exec($dbconn, $sql) or die(pg_errormessage());
 
 $sql1="CREATE TABLE users_register(
 id SERIAL,
@@ -44,66 +44,66 @@ PRIMARY KEY(id)
 )";   
 pg_exec($dbconn, $sql1) or die(pg_errormessage());
 
-// $sql2="CREATE TABLE sequentsteps(
-// id SERIAL,
-// sender_id varchar(50),
-// seqcode varchar(30),
-// answer varchar(255),
-// nextseqcode varchar(255),
-// status varchar(255),
-// created_at timestamp,
-// updated_at timestamp,
-// PRIMARY KEY(id)
-// )";   
-// pg_exec($dbconn, $sql2) or die(pg_errormessage());
+$sql2="CREATE TABLE sequentsteps(
+id SERIAL,
+sender_id varchar(50),
+seqcode varchar(30),
+answer varchar(255),
+nextseqcode varchar(255),
+status varchar(255),
+created_at timestamp,
+updated_at timestamp,
+PRIMARY KEY(id)
+)";   
+pg_exec($dbconn, $sql2) or die(pg_errormessage());
 
 
-// $sql3="CREATE TABLE pregnants(
-// id SERIAL,
-// week  integer,
-// title text,
-// descript text,
-// img text,
-// created_at timestamp,
-// updated_at timestamp,
-// PRIMARY KEY(id)
-// )";   
-// pg_exec($dbconn, $sql3) or die(pg_errormessage());
+$sql3="CREATE TABLE pregnants(
+id SERIAL,
+week  integer,
+title text,
+descript text,
+img text,
+created_at timestamp,
+updated_at timestamp,
+PRIMARY KEY(id)
+)";   
+pg_exec($dbconn, $sql3) or die(pg_errormessage());
 
 
-// $sql4="CREATE TABLE RecordOfPregnancy(
-// id SERIAL,
-// user_id  varchar(50),
-// preg_week  integer,
-// preg_weight varchar(3),
-// updated_at timestamp,
-// -- his_preg_wc varchar(225)
-//  PRIMARY KEY(id)
-//  -- FOREIGN KEY (his_preg_week) REFERENCES Pregnancy_week_data(week_preg),
-//  -- FOREIGN KEY (user_id) REFERENCES users_data(user_id)
-//  )";   
-// pg_exec($dbconn, $sql4) or die(pg_errormessage());
+$sql4="CREATE TABLE RecordOfPregnancy(
+id SERIAL,
+user_id  varchar(50),
+preg_week  integer,
+preg_weight varchar(3),
+updated_at timestamp,
+-- his_preg_wc varchar(225)
+ PRIMARY KEY(id)
+ -- FOREIGN KEY (his_preg_week) REFERENCES Pregnancy_week_data(week_preg),
+ -- FOREIGN KEY (user_id) REFERENCES users_data(user_id)
+ )";   
+pg_exec($dbconn, $sql4) or die(pg_errormessage());
 
 
 
-// $sql="CREATE TABLE meal_planing(
-// id SERIAL,
-// caloric_level integer,
-// starches integer,
-// vegetables integer,
-// fruits integer,
-// meats integer,
-// fats integer,
-// lf_milk integer,
-// c integer,
-// p integer,
-// f integer,
-// g_protein integer,
-// created_at timestamp,
-// updated_at timestamp,
-// PRIMARY KEY(id)
-// )";   
-// pg_exec($dbconn, $sql) or die(pg_errormessage());
+$sql="CREATE TABLE meal_planing(
+id SERIAL,
+caloric_level integer,
+starches integer,
+vegetables integer,
+fruits integer,
+meats integer,
+fats integer,
+lf_milk integer,
+c integer,
+p integer,
+f integer,
+g_protein integer,
+created_at timestamp,
+updated_at timestamp,
+PRIMARY KEY(id)
+)";   
+pg_exec($dbconn, $sql) or die(pg_errormessage());
 
 
 
