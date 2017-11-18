@@ -97,27 +97,6 @@ if (!is_null($events['events'])) {
                         'type' => 'text',
                         'text' => 'กรุณาพิมพ์ใหม่นะคะ'
                       ];  
-                    
-}elseif ($event['message']['text'] == "ชื่อถูกต้อง"  ) {
-               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($result)) {
-                  echo $answer = $row[0]; 
-                }   
-
-                  // $pieces = explode("", $answer);
-                  // $name =str_replace("","",$pieces[0]);
-                  // $surname =str_replace("","",$pieces[1]);
-                 $u = pg_escape_string($answer);
-                  // $u2 = pg_escape_string($surname);
-                 $replyToken = $event['replyToken'];
-                 $messages = [
-                        'type' => 'text',
-                        'text' => 'ขอทราบอายุของคุณหน่อยค่ะ '
-                      ];
-
-$q = pg_exec($dbconn, "INSERT INTO users_register(user_id,user_name,status,updated_at )VALUES('{$user_id}','{$u}','1',NOW())") or die(pg_errormessage());
-$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0007','','0008','0',NOW(),NOW())") or die(pg_errormessage());
-
 ###########################################################################################################
   }elseif (strpos($_msg) !== false && $seqcode == "0005" ) {
     
@@ -145,6 +124,29 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
         ]
     ];     
       $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0005','{$u}','0007','0',NOW(),NOW())") or die(pg_errormessage());
+###########################################################################################################                    
+}elseif ($event['message']['text'] == "ชื่อถูกต้อง"  ) {
+               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($result)) {
+                  echo $answer = $row[0]; 
+                }   
+
+                  // $pieces = explode("", $answer);
+                  // $name =str_replace("","",$pieces[0]);
+                  // $surname =str_replace("","",$pieces[1]);
+                 $u = pg_escape_string($answer);
+                  // $u2 = pg_escape_string($surname);
+$q = pg_exec($dbconn, "INSERT INTO users_register(user_id,user_name,status,updated_at )VALUES('{$user_id}','{$u}','1',NOW())") or die(pg_errormessage());
+
+                 $replyToken = $event['replyToken'];
+                 $messages = [
+                        'type' => 'text',
+                        'text' => 'ขอทราบอายุของคุณหน่อยค่ะ '
+                      ];
+
+
+$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0007','','0008','0',NOW(),NOW())") or die(pg_errormessage());
+
 
 ########################################################################################################################################################
  
@@ -192,13 +194,15 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                   // $surname =str_replace("","",$pieces[1]);
                  $u = pg_escape_string($answer);
                   // $u2 = pg_escape_string($surname);
+ $q = pg_exec($dbconn, "UPDATE users_register SET user_age = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+
                  $replyToken = $event['replyToken'];
                  $messages = [
                         'type' => 'text',
                         'text' => 'ขอทราบส่วนสูงปัจจุบันของคุณค่ะ (กรุณาตอบเป็นตัวเลขในหน่วยเซ็นติเมตร เช่น 160)'
                       ];
 
- $q = pg_exec($dbconn, "UPDATE users_register SET user_age = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0009','','0010','0',NOW(),NOW())") or die(pg_errormessage());
  // }elseif ($event['message']['text'] == "ไม่ถูกต้อง" ) {
  //                 $replyToken = $event['replyToken'];
@@ -252,13 +256,15 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                   // $surname =str_replace("","",$pieces[1]);
                  $u = pg_escape_string($answer);
                   // $u2 = pg_escape_string($surname);
+$q = pg_exec($dbconn, "UPDATE users_register SET user_height = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+
                  $replyToken = $event['replyToken'];
                  $messages = [
                         'type' => 'text',
                         'text' => 'ขอทราบน้ำหนักปกติก่อนตั้งครรภ์ค่ะ (กรุณาตอบเป็นตัวเลขในหน่วยกิโลกรัม เช่น 55)'
                       ];
 
- $q = pg_exec($dbconn, "UPDATE users_register SET user_height = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0011','','0012','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################################################################
@@ -308,13 +314,15 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                   // $surname =str_replace("","",$pieces[1]);
                  $u = pg_escape_string($answer);
                   // $u2 = pg_escape_string($surname);
-                 $replyToken = $event['replyToken'];
+ $q = pg_exec($dbconn, "UPDATE users_register SET user_pre_weight = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+
+                  $replyToken = $event['replyToken'];
                  $messages = [
                         'type' => 'text',
                         'text' => 'ขอทราบน้ำหนักปัจจุบันของคุณค่ะ (กรุณาตอบเป็นตัวเลขในหน่วยกิโลกรัม เช่น 59)'
                       ];
 
- $q = pg_exec($dbconn, "UPDATE users_register SET user_pre_weight = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0013','','0014','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################################################################
@@ -392,12 +400,10 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 
 
+$q = pg_exec($dbconn, "UPDATE users_register SET user_weight = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0015','','0016','0',NOW(),NOW())") or die(pg_errormessage());
 
-
-//$q = pg_exec($dbconn, "UPDATE users_register SET user_weight = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-//$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0015','','0016','0',NOW(),NOW())") or die(pg_errormessage());
-
- // $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,$answer ,  NOW()) ") or die(pg_errormessage());  
+ $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,$answer ,  NOW()) ") or die(pg_errormessage());  
 
 
 ########################################################################################################################################################
