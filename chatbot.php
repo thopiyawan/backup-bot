@@ -1258,7 +1258,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                     ]
                                   [
                                     'type' => 'uri',
-                                    'label' => 'ข้อมูลโภชนาการ',
+                                    'label' => 'Nutrition',
                                     'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
                                     ]
                                       ]
