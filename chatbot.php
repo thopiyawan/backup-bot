@@ -1418,15 +1418,30 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                 }   
             $u = pg_escape_string($_msg); 
             $replyToken = $event['replyToken'];
-
+        
+        $que = "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน";
+        $que2 = "รายละเอียดของระดับ"
+                "เบา -  วิถีชีวิตทั่วไป ไม่มีการออกกำลังกาย หรือมีการออกกำลังกายน้อย". "\n".
+                "กลาง - วิถีชีวิตกระฉับกระเฉง หรือ มีการออกกำลังกายสม่ำเสมอ". "\n".
+                "หนัก - วิถีชีวิตมีการใช้แรงงานหนัก ออกกำลังกายหนักเป็นประจำ". "\n".  
         $messages = [
+              'type' => 'text',
+              'text' => $que
+        ];
+
+        $messages2 = [
+              'type' => 'text',
+              'text' => $que2
+        ];
+
+        $messages3 = [
           'type'=> 'template',
           'altText'=> 'this is a buttons template',
           'template'=> [
               'type'=> 'buttons',
               //'thumbnailImageUrl'=> 'https://example.com/bot/images/image.jpg',
-              'title'=> "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน",
-              'text'=> "......",
+              //'title'=> "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน",
+              'text'=> "เลือกระดับด้านล่างได้เลยค่ะ",
               'actions'=> [
                   [
                     'type'=> 'message',
@@ -1447,8 +1462,34 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
           ]
         ];
 
+
+
+
+
 $q = pg_exec($dbconn, "UPDATE users_register SET  history_food = '{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0027','{$u}','1001','0',NOW(),NOW())") or die(pg_errormessage());
+
+
+
+          $url = 'https://api.line.me/v2/bot/message/reply';
+         $data = [
+          'replyToken' => $replyToken,
+          'messages' => [$messages,$messages2,$messages3],
+         ];
+         error_log(json_encode($data));
+         $post = json_encode($data);
+         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         $ch = curl_init($url);
+         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         $result = curl_exec($ch);
+         curl_close($ch);
+         echo $result . "\r\n"; 
+
+
 
 #########################################################################################################################################################
 
