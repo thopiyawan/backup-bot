@@ -1171,9 +1171,9 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                   echo $preg_week = $row[2];
                 } 
 
-        if ($age>=10 && $age<=18) {
+        if ($age>=10 && $age<18) {
           $cal=(13.384*$weight)+692.6;
-        }elseif ($age>=18 && $age<=30) {
+        }elseif ($age>18 && $age<31) {
           $cal=(14.818*$weight)+486.6;
         }else{
           $cal=(8.126*$weight)+845.6;
@@ -1213,25 +1213,25 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           "-ไขมันวันละ" .$fats. "ช้อนชา"."\n".
                           "-นมไขมันต่ำวันละ" .$lf_milk. "แก้ว";
 
-                if ($total <= 1600) {
+                if ($total < 1601) {
                   $aaa=$bbb;
-                } elseif ($total >= 1601 && $total<=1700) {
+                } elseif ($total > 1600 && $total<1701) {
                   $aaa=$bbb;
-                }elseif ($total >=1701 && $total<=1800) {
+                }elseif ($total >1700 && $total<1801) {
                   $aaa=$bbb;
-                }elseif ($total >=1801 && $total<=1900) {
+                }elseif ($total >1800 && $total<1901) {
                  $aaa=$bbb;
-                }elseif ($total >=1901 && $total<=2000) {
+                }elseif ($total >1900 && $total<2001) {
                   $aaa=$bbb;
-                }elseif ($total >=2001 && $total<=2100 ) {
+                }elseif ($total >2000 && $total<2101 ) {
                   $aaa=$bbb;
-                }elseif ($total >= 2101 && $total<=2200) {
+                }elseif ($total > 2100 && $total<2201) {
                   $aaa=$bbb;
-                }elseif ($total >= 2201 && $total <=2300) {
+                }elseif ($total > 2200 && $total <2301) {
                   $aaa=$bbb;
-                }elseif ($total >= 2301 && $total <=2400) {
+                }elseif ($total > 2300 && $total <2401) {
                   $aaa=$bbb;
-                }elseif ($total >= 2401 && $total <=2500) {
+                }elseif ($total > 2400 && $total <2501) {
                  $aaa=$bbb;
                 }else {
                   $aaa=$bbb;
