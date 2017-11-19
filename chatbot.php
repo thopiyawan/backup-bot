@@ -1271,7 +1271,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 
                 if ($preg_week >=13 && $preg_week<=40) {
                   $a = $total+300;
-                      
+                  $format2 = number_format($a);    
                       $messages3 = [
                                                               
                         'type' => 'template',
@@ -1279,7 +1279,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                         'template' => [
                             'type' => 'buttons',
                             //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
-                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$a,
+                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format2,
                             'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
                             'actions' => [
 
@@ -1300,7 +1300,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                         'template' => [
                             'type' => 'buttons',
                             //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
-                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$total,
+                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format,
                             'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
                             'actions' => [
 
