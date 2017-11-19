@@ -1440,8 +1440,8 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
           'template'=> [
               'type'=> 'buttons',
               //'thumbnailImageUrl'=> 'https://example.com/bot/images/image.jpg',
-              'title'=> "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน",
-              'text'=> "เลือกระดับด้านล่างได้เลยค่ะ",
+              'title'=> "เลือกระดับด้านล่างได้เลยค่ะ",
+              //'text'=> "เลือกระดับด้านล่างได้เลยค่ะ",
               'actions'=> [
                   [
                     'type'=> 'message',
