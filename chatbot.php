@@ -947,7 +947,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 //$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0025','','0026','0',NOW(),NOW())") or die(pg_errormessage());
 ########################################################################################################################################################
 
- }elseif ($event['message']['text'] == "รูปภาพ" ) {
+ }elseif ($event['message']['text'] == "แนะนำอาหาร" ) {
                
                 $replyToken = $event['replyToken'];
                 
@@ -1246,11 +1246,11 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                     'label' => 'ไปยังลิงค์',
                                     'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
                                   ],
-                                  [
-                                    'type' => 'message',
-                                    'label' => 'รูปภาพ',
-                                    'text' => 'รูปภาพ'
-                                  ]
+                                  // [
+                                  //   'type' => 'message',
+                                  //   'label' => 'รูปภาพ',
+                                  //   'text' => 'รูปภาพ'
+                                  // ]
                                   // [
                                   //   // 'type' => 'message',
                                   //   // 'label' => 'รูปภาพ',
