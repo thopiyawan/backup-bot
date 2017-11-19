@@ -968,59 +968,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                         'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat3.jpg',
                                         'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat3.jpg'
                                     ];
-                 // $messages = [
-                 //      'type'=> 'template',
-                 //      'altText'=> 'this is a carousel template',
-                 //      'template'=> [
-                 //          'type'=> 'carousel',
-                 //          'columns'=> [
-                 //              [
-                 //                'thumbnailImageUrl'=> 'https://example.com/bot/images/item1.jpg',
-                 //                'title'=> 'this is menu',
-                 //                'text'=> 'description',
-                 //                'actions'=> [
-                 //                    // [
-                 //                    //     'type'=> 'image',
-                 //                    //     'originalContentUrl'=> 'Buy',
-                 //                    //     'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat1.jpg'
-                 //                    // ],
-                 //                    [
-                 //                        'type'=> 'postback',
-                 //                        'label'=> 'Add to cart',
-                 //                        'data'=> 'action=add&itemid=111'
-                 //                    ],
-                 //                    [
-                 //                        'type'=> 'uri',
-                 //                        'label'=> 'View detail',
-                 //                        'uri'=> 'http://example.com/page/111'
-                 //                    ]
-                 //                ]
-                 //              ],
-                 //              [
-                 //                'thumbnailImageUrl'=> 'https://example.com/bot/images/item1.jpg',
-                 //                'title'=> 'this is menu',
-                 //                'text'=> 'description',
-                 //                'actions'=> [
-                 //                    // [
-                 //                    //     'type'=> 'postback',
-                 //                    //     'label'=> 'Buy',
-                 //                    //     'data'=> 'action=buy&itemid=111'
-                 //                    // ],
-                 //                    [
-                 //                        'type'=> 'postback',
-                 //                        'label'=> 'Add to cart',
-                 //                        'data'=> 'action=add&itemid=111'
-                 //                    ],
-                 //                    [
-                 //                        'type'=> 'uri',
-                 //                        'label'=> 'View detail',
-                 //                        'uri'=> 'http://example.com/page/111'
-                 //                    ]
-                 //                ]
-                 //              ]
-                 //          ]
-                 //      ]
-                 //    ];    
+  
 
           $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
@@ -1599,7 +1547,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-}elseif (strpos($_msg) !== false && $seqcode == "0025")  {
+}elseif (strpos($_msg) !== false && $seqcode == "0025" || $event['message']['text'] == "ไม่แพ้ยา" )  {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
                   echo $answer = $row[0]; 
