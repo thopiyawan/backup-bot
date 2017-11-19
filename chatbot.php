@@ -534,7 +534,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
 
                  $u = pg_escape_string($answer);
  $q = pg_exec($dbconn, "UPDATE users_register SET user_weight = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-                  
+
                  $replyToken = $event['replyToken'];
                  $messages = [
                         'type' => 'text',
@@ -1151,29 +1151,6 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                           'text' => $des
                       ];
 
-                    // $messages2 = [
-                    //     'type' => 'text',
-                    //     'text' =>  $des
-                    //   ];
-                
-
-         //  $url = 'https://api.line.me/v2/bot/message/reply';
-         // $data = [
-         //  'replyToken' => $replyToken,
-         //  'messages' => [$messages,$messages2],
-         // ];
-         // error_log(json_encode($data));
-         // $post = json_encode($data);
-         // $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-         // $ch = curl_init($url);
-         // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-         // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-         // curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-         // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-         // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-         // $result = curl_exec($ch);
-         // curl_close($ch);
-         // echo $result . "\r\n";   
 
 ########################################################################################################################################################
 
@@ -1297,9 +1274,45 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                   $aaa=$bbb;
                 }
                 
+
+                 $ccc =  "น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกๆลังกายดูไหมคะ". "\n".
+                          "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
                   $replyToken = $event['replyToken'];
-                    
-                    $messages = [
+                  
+                    if ($bmi>=24.9 ) {
+                        
+                        $messages = [
+                                                              
+                        'type' => 'template',
+                        'altText' => 'template',
+                        'template' => [
+                            'type' => 'buttons',
+                            'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$preg_week .'.jpg',
+                            'title' => 'ขณะนี้คุณมีอายุครรภ์'.$preg_week.'สัปดาห์',
+                            'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
+                            'actions' => [
+
+                                   [
+                                    'type' => 'uri',
+                                    'label' => 'กราฟ',
+                                    'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+                                    ],
+                                  [
+                                    'type' => 'message',
+                                    'label' => 'ทารกในครรภ์',
+                                    'text' => 'ทารกในครรภ์'
+                                    ]
+                                      ]
+                                  ]
+                              ];
+                          $messages2 = [
+                            'type' => 'text',
+                            'text' => $ccc
+                      ];
+
+                    }else{
+
+                       $messages = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1324,6 +1337,9 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                                   ]
                               ];
 
+                    }
+                      
+                   
 
                 if ($preg_week >=13 && $preg_week<=40) {
                   $a = $total+300;
@@ -1392,7 +1408,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
     $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
           'replyToken' => $replyToken,
-          'messages' => [$messages/*,$messages2*/,$messages3],
+          'messages' => [$messages,$messages2,$messages3],
          ];
          error_log(json_encode($data));
          $post = json_encode($data);
