@@ -577,30 +577,30 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 
             // if(($month>$today_month && $month<=12 && $date<=31) || ($month==$today_month && $date>$today_day)  ){
-                $years = $today_years-1;
-                $days = $today_day-1;
-                $strDate1 = $years."-".$month."-".$date;
-                $strDate2=date("Y-m-d");
+                // $years = $today_years-1;
+                // $days = $today_day-1;
+                // $strDate1 = $years."-".$month."-".$date;
+                // $strDate2=date("Y-m-d");
                 
 
-                $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 )-1;
-                $week = $date_pre/7;
-                $week2 = $week-39;   
+                // $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 )-1;
+                // $week = $date_pre/7;
+                // $week2 = $week-39;   
 
-                $week_preg = number_format($week2);
-                $day = $date_pre%7;
-                $day2 = 7-$day
+                // $week_preg = number_format($week2);
+                // $day = $date_pre%7;
+                // $day2 = 7-$day
 
-                $day_preg = number_format($day2);
+                // $day_preg = number_format($day2);
 
-                $age_pre = 'คุณมีอายุครรภ์'. $week_preg .'สัปดาห์'.  $day_preg .'วัน' ;
+                $age_pre = 'คุณมีอายุครรภ์'. $DateNum .'สัปดาห์'/*.  $day_preg .'วัน'*/ ;
                       $replyToken = $event['replyToken'];
                       $messages = [
                           'type' => 'template',
                           'altText' => 'this is a confirm template',
                           'template' => [
                               'type' => 'confirm',
-                              'text' =>   $DateNum.'ใช่ไหมคะ?' ,
+                              'text' =>   $age_pre.'ใช่ไหมคะ?' ,
                               'actions' => [
                                   [
                                       'type' => 'message',
