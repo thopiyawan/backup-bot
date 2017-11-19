@@ -1448,7 +1448,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0025','','0027','0',NOW(),NOW())") or die(pg_errormessage());
 ########################################################################################################################################################
 
-}elseif (strpos($_msg) !== false && $seqcode == "0027" ) {
+}elseif (strpos($_msg) !== false && $seqcode == "0027" || $event['message']['text'] == "ไม่แพ้อาหาร" ) {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
                   echo $answer = $row[0]; 
