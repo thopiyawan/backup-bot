@@ -1168,7 +1168,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
             
                   echo $weight = $row[0]; 
                   echo $age = $row[1];
-          echo $preg_week = $row[2];
+                  echo $preg_week = $row[2];
                 } 
 
         if ($age>=10 && $age<=18) {
@@ -1179,7 +1179,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
           $cal=(8.126*$weight)+845.6;
         }
 
-        if ($_msg=="หนัก" ) {
+        if ($_msg=="หนัก"  ) {
           $total = $cal*2.0;
         }elseif($_msg=="ปานกลาง") {
           $total = $cal*1.7;
@@ -1187,12 +1187,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
           $total = $cal*1.4;
         }
 
-        if ($preg_week >=13 && $preg_week<=40) {
-          $a = $total+300;
-        }else{
-          $a=$total; 
-        }
-        
+
   $check_q4 = pg_query($dbconn,"SELECT starches ,vegetables, fruits, meats, fats, lf_milk, c, p, f, g_protein  FROM meal_planing WHERE caloric_level <=$total");
                 while ($row = pg_fetch_row($check_q4)) {
             
@@ -1274,8 +1269,31 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                 //         'text' =>  
                 //       ];
 
-                
-                $messages3 = [
+                if ($preg_week >=13 && $preg_week<=40) {
+                  $a = $total+300;
+                      
+                      $messages3 = [
+                                                              
+                        'type' => 'template',
+                        'altText' => 'template',
+                        'template' => [
+                            'type' => 'buttons',
+                            //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
+                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$a,
+                            'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
+                            'actions' => [
+
+                                  [
+                                    'type' => 'uri',
+                                    'label' => 'ไปยังลิงค์',
+                                    'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
+                                  ]
+                                ]
+                              ]
+                            ];
+                   }else{
+                      
+                      $messages3 = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1290,23 +1308,13 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                     'type' => 'uri',
                                     'label' => 'ไปยังลิงค์',
                                     'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
-                                  ],
-                                  // [
-                                  //   'type' => 'message',
-                                  //   'label' => 'รูปภาพ',
-                                  //   'text' => 'รูปภาพ'
-                                  // ]
-                                  // [
-                                  //   // 'type' => 'message',
-                                  //   // 'label' => 'รูปภาพ',
-                                  //   // 'text' => 'รูปภาพ'
-                                  // 'type'=> 'postback',
-                                  // 'label'=> 'รูปภาพ',
-                                  // 'data'=> 'รูปภาพ'
-                                  // ]
+                                  ]
                                 ]
                               ]
                             ];
+        }
+        
+
 
                 // $messages4 = [
                 //         'type' => 'text',
