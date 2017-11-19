@@ -551,7 +551,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015','','0016','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 // ########################################################################################################################################################
-}elseif (strlen($_msg) == 5 && $seqcode == "2015") {
+ }elseif (strlen($_msg) == 5 && $seqcode == "2015") {
      $pieces = explode(" ", $_msg);
     $date = str_replace("","",$pieces[0]);
     $month  = str_replace("","",$pieces[1]);
