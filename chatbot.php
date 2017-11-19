@@ -1169,27 +1169,31 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           'text' => $bbb
                       ];
 
+                      $messages2 = [
+                          'type' => 'text',
+                          'text' => "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ"
+                      ];
 
 
 
 
-         //  $url = 'https://api.line.me/v2/bot/message/reply';
-         // $data = [
-         //  'replyToken' => $replyToken,
-         //  'messages' => [$messages,$messages2,$messages3],
-         // ];
-         // error_log(json_encode($data));
-         // $post = json_encode($data);
-         // $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-         // $ch = curl_init($url);
-         // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-         // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-         // curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-         // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-         // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-         // $result = curl_exec($ch);
-         // curl_close($ch);
-         // echo $result . "\r\n";   
+          $url = 'https://api.line.me/v2/bot/message/reply';
+         $data = [
+          'replyToken' => $replyToken,
+          'messages' => [$messages,$messages2],
+         ];
+         error_log(json_encode($data));
+         $post = json_encode($data);
+         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         $ch = curl_init($url);
+         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         $result = curl_exec($ch);
+         curl_close($ch);
+         echo $result . "\r\n";   
 
 ########################################################################################################################################################
 
