@@ -1202,7 +1202,7 @@ $check_q = pg_query($dbconn,"SELECT preg_week  FROM users_register WHERE user_id
                   echo $answer = $row[0];  
                 } 
               
-          $replyToken = $event['replyToken'];
+
 
 $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = $answer ");
               while ($row = pg_fetch_row($des_preg)) {
@@ -1210,7 +1210,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                   echo $img = $row[1]; 
  
                 } 
-
+          $replyToken = $event['replyToken'];
                       $messages = [
                           'type' => 'text',
                           'text' => $bbb
@@ -1225,7 +1225,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
           $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
           'replyToken' => $replyToken,
-          'messages' => [$messages,$messages2,$messages3],
+          'messages' => [$messages,$messages2],
          ];
          error_log(json_encode($data));
          $post = json_encode($data);
