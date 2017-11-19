@@ -1196,6 +1196,51 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
          echo $result . "\r\n";   
 
 ########################################################################################################################################################
+}elseif ($event['message']['text'] == "ทารกในครรภ์" ) {
+$check_q = pg_query($dbconn,"SELECT preg_week  FROM users_register WHERE user_id = '{$user_id}' ");
+                while ($row = pg_fetch_row($check_q)) {
+                  echo $answer = $row[0];  
+                } 
+              
+          $replyToken = $event['replyToken'];
+
+$des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = $answer ");
+              while ($row = pg_fetch_row($des_preg)) {
+                  echo $des = $row[0]; 
+                  echo $img = $row[1]; 
+ 
+                } 
+
+                      $messages = [
+                          'type' => 'text',
+                          'text' => $bbb
+                      ];
+
+                    $messages2 = [
+                        'type' => 'text',
+                        'text' =>  $des
+                      ];
+                
+
+          $url = 'https://api.line.me/v2/bot/message/reply';
+         $data = [
+          'replyToken' => $replyToken,
+          'messages' => [$messages,$messages2,$messages3],
+         ];
+         error_log(json_encode($data));
+         $post = json_encode($data);
+         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         $ch = curl_init($url);
+         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         $result = curl_exec($ch);
+         curl_close($ch);
+         echo $result . "\r\n";   
+
+########################################################################################################################################################
 
 }elseif ($event['message']['text'] == "หนัก" || $event['message']['text'] == "ปานกลาง" || $event['message']['text'] == "เบา"  ) {
                  
@@ -1337,20 +1382,13 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                     ],
                                   [
                                     'type' => 'message',
-                                    'label' => 'Nutrition',
-                                    'text' => 'Nutrition'
+                                    'label' => 'ทารกในครรภ์',
+                                    'text' => 'ทารกในครรภ์'
                                     ]
                                       ]
                                   ]
                               ];
 
-            // $eatProtein=$weight+25;
-
-      
-                // $messages2 = [
-                //         'type' => 'text',
-                //         'text' =>  
-                //       ];
 
                 if ($preg_week >=13 && $preg_week<=40) {
                   $a = $total+300;
@@ -1370,7 +1408,12 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                     'type' => 'uri',
                                     'label' => 'ไปยังลิงค์',
                                     'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
-                                  ]
+                                  ],
+                                  [
+                                    'type' => 'message',
+                                    'label' => 'Nutrition',
+                                    'text' => 'Nutrition'
+                                    ]
                                 ]
                               ]
                             ];
