@@ -1417,6 +1417,20 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################### 
 
+
+}elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
+    
+     $replyToken = $event['replyToken'];
+      $text = "ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ";
+      $messages = [
+          'type' => 'text',
+          'text' => $text
+        ]; 
+
+
+
+########################################################################################################################################################
+
 }elseif (strpos($_msg) !== false && $seqcode == "0027" ) {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
@@ -1458,19 +1472,6 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 #########################################################################################################################################################
 
-
-}elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
-    
-     $replyToken = $event['replyToken'];
-      $text = "ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ";
-      $messages = [
-          'type' => 'text',
-          'text' => $text
-        ]; 
-
-
-
-########################################################################################################################################################
 
   }else {
    $replyToken = $event['replyToken'];
