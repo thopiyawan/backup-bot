@@ -1197,12 +1197,11 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 
 ########################################################################################################################################################
 }elseif ($event['message']['text'] == "ทารกในครรภ์" ) {
-$check_q = pg_query($dbconn,"SELECT preg_week  FROM users_register WHERE user_id = '{$user_id}' ");
+$check_q = pg_query($dbconn,"SELECT preg_week  FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q)) {
                   echo $answer = $row[0];  
                 } 
               
-
 
 $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = $answer ");
               while ($row = pg_fetch_row($des_preg)) {
@@ -1210,6 +1209,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                   echo $img = $row[1]; 
  
                 } 
+
           $replyToken = $event['replyToken'];
                       $messages = [
                           'type' => 'text',
