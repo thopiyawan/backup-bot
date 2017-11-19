@@ -1420,7 +1420,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
             $replyToken = $event['replyToken'];
         
         $que = "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน";
-        $que2 = "รายละเอียดของระดับ"
+        $que2 = "รายละเอียดของระดับ". "\n".
                 "เบา -  วิถีชีวิตทั่วไป ไม่มีการออกกำลังกาย หรือมีการออกกำลังกายน้อย". "\n".
                 "กลาง - วิถีชีวิตกระฉับกระเฉง หรือ มีการออกกำลังกายสม่ำเสมอ". "\n".
                 "หนัก - วิถีชีวิตมีการใช้แรงงานหนัก ออกกำลังกายหนักเป็นประจำ". "\n";  
@@ -1440,7 +1440,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
           'template'=> [
               'type'=> 'buttons',
               //'thumbnailImageUrl'=> 'https://example.com/bot/images/image.jpg',
-              //'title'=> "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน",
+              'title'=> "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน",
               'text'=> "เลือกระดับด้านล่างได้เลยค่ะ",
               'actions'=> [
                   [
