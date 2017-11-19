@@ -1087,11 +1087,12 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 
 
  }elseif ($event['message']['text'] == "Nutrition" ) {
-     $check_q3 = pg_query($dbconn,"SELECT user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
+    $check_q3 = pg_query($dbconn,"SELECT user_weight,user_age,preg_week  FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q3)) {
             
-                  echo $age = $row[0];
-                 
+                  echo $weight = $row[0]; 
+                  echo $age = $row[1];
+                  echo $preg_week = $row[2];
                 } 
 
         if ($age>=10 && $age<18) {
@@ -1159,7 +1160,8 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                  $aaa=$bbb;
                 }else {
                   $aaa=$bbb;
-                }             
+                }
+                
                 $replyToken = $event['replyToken'];
                 
                       $messages = [
