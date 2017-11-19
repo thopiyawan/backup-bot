@@ -1215,13 +1215,13 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
           $replyToken = $event['replyToken'];
                       $messages = [
                           'type' => 'text',
-                          'text' => $bbb
+                          'text' => $des
                       ];
 
-         //            $messages2 = [
-         //                'type' => 'text',
-         //                'text' =>  $des
-         //              ];
+                    // $messages2 = [
+                    //     'type' => 'text',
+                    //     'text' =>  $des
+                    //   ];
                 
 
          //  $url = 'https://api.line.me/v2/bot/message/reply';
