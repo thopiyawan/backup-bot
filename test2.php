@@ -6,12 +6,23 @@
     $pieces = explode(" ", $_msg);
     $date = str_replace("","",$pieces[0]);
     $month  = str_replace("","",$pieces[1]);
-   
+            //วันเริ่มต้น
             $today_years= date("Y") ;
             $today_month= date("m") ;
             $today_day  = date("d") ;
           
+          // $DateStart = 01;  //วันเริ่มต้น
+          // $MonthStart = 02; //เดือนเริ่มต้น
+          // $YearStart = 2007;  //ปีเริ่มต้น
+          /*คลอด*/
+          $DateEnd = $date;  //วันสิ้นสุด
+          $MonthEnd = $month; //เดือนสิ้นสุด
+          $YearEnd = date("Y");  //ปีสิ้นสุด
 
+          $End = mktime(0,0,0,$MonthEnd,$DateEnd,$YearEnd);
+          $Start = mktime(0,0,0,$today_day ,$today_month ,$today_years);
+
+          $DateNum=ceil(($End -$Start)/86400); // 28
 
 
 
@@ -39,7 +50,7 @@
                           'altText' => 'this is a confirm template',
                           'template' => [
                               'type' => 'confirm',
-                              'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+                              'text' =>   $DateNum.'ใช่ไหมคะ?' ,
                               'actions' => [
                                   [
                                       'type' => 'message',
