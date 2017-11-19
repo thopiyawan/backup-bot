@@ -951,39 +951,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                
                 $replyToken = $event['replyToken'];
                 
-                // $messages = [
-                //     'type'=> 'template',
-                //     'altText'=> 'this is a image carousel template',
-                //     'template'=> [
-                //         'type'=> 'image_carousel',
-                //         'columns'=> [
-                //             [
-                //               'imageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat1.jpg',
-                //               'action'=> [
-                //                 'type'=> 'message',
-                //                 'label'=> 'Yes',
-                //                 'text'=> 'yes'
-                //               ]
-                //             ],
-                //             [
-                //               'imageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat2.jpg',
-                //               'action'=> [
-                //                 'type'=> 'message',
-                //                 'label'=> 'Yes',
-                //                 'text'=> 'yes'
-                //               ]
-                //             ],
-                //             [
-                //               'imageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat3.jpg',
-                //               'action'=> [
-                //                 'type'=> 'uri',
-                //                 'label'=> 'View detail',
-                //                 'uri'=> 'http://example.com/page/222'
-                //               ]
-                //             ]
-                //         ]
-                //       ]   
-                //   ];    
+             
 
                                   $messages = [
                                         'type'=> 'image',
@@ -1117,6 +1085,111 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 
 ########################################################################################################################################################
 
+
+ }elseif ($event['message']['text'] == "Nutrition" ) {
+     $check_q3 = pg_query($dbconn,"SELECT user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($check_q3)) {
+            
+                  echo $age = $row[0];
+                 
+                } 
+
+        if ($age>=10 && $age<18) {
+          $cal=(13.384*$weight)+692.6;
+        }elseif ($age>18 && $age<31) {
+          $cal=(14.818*$weight)+486.6;
+        }else{
+          $cal=(8.126*$weight)+845.6;
+        }
+
+        if ($_msg=="หนัก"  ) {
+          $total = $cal*2.0;
+        }elseif($_msg=="ปานกลาง") {
+          $total = $cal*1.7;
+        }else{
+          $total = $cal*1.4;
+        }
+      $format = number_format($total);
+               
+
+  $check_q4 = pg_query($dbconn,"SELECT starches ,vegetables, fruits, meats, fats, lf_milk, c, p, f, g_protein  FROM meal_planing WHERE caloric_level <=$total");
+                while ($row = pg_fetch_row($check_q4)) {
+            
+          //echo $caloric = $row[0]; 
+          echo $starches = $row[0];
+          echo $vegetables = $row[1];
+          echo $fruits = $row[2];
+          echo $meats = $row[3];
+          echo $fats = $row[4];
+          echo $lf_milk = $row[5];
+          echo $c = $row[6];
+          echo $p = $row[7];
+          echo $f = $row[8];
+          echo $g_protein  = $row[9];
+
+                } 
+
+                  $bbb =  "พลังงานที่ต้องการในแต่ละวันคือ". "\n".
+                          "-ข้าววันละ". $starches ."ทัพพี". "\n".
+                          "-ผักวันละ". $vegetables. "ทัพพี"."\n".
+                          "-ผลไม้วันละ".$fruits."ส่วน (1 ส่วนคือปริมาณผลไม้ที่จัดใส่จานรองกาแฟเล็ก ๆ ได้ 1 จานพอดี)"."\n".
+                          "-เนื้อวันละ" .$meats. "ส่วน (1 ส่วนคือ 2 ช้อนโต๊ะ)"."\n".
+                          "-ไขมันวันละ" .$fats. "ช้อนชา"."\n".
+                          "-นมไขมันต่ำวันละ" .$lf_milk. "แก้ว";
+
+                if ($total < 1601) {
+                  $aaa=$bbb;
+                } elseif ($total > 1600 && $total<1701) {
+                  $aaa=$bbb;
+                }elseif ($total >1700 && $total<1801) {
+                  $aaa=$bbb;
+                }elseif ($total >1800 && $total<1901) {
+                 $aaa=$bbb;
+                }elseif ($total >1900 && $total<2001) {
+                  $aaa=$bbb;
+                }elseif ($total >2000 && $total<2101 ) {
+                  $aaa=$bbb;
+                }elseif ($total > 2100 && $total<2201) {
+                  $aaa=$bbb;
+                }elseif ($total > 2200 && $total <2301) {
+                  $aaa=$bbb;
+                }elseif ($total > 2300 && $total <2401) {
+                  $aaa=$bbb;
+                }elseif ($total > 2400 && $total <2501) {
+                 $aaa=$bbb;
+                }else {
+                  $aaa=$bbb;
+                }             
+                $replyToken = $event['replyToken'];
+                
+                      $messages = [
+                          'type' => 'text',
+                          'text' => $bbb
+                      ];
+
+
+
+
+
+         //  $url = 'https://api.line.me/v2/bot/message/reply';
+         // $data = [
+         //  'replyToken' => $replyToken,
+         //  'messages' => [$messages,$messages2,$messages3],
+         // ];
+         // error_log(json_encode($data));
+         // $post = json_encode($data);
+         // $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         // $ch = curl_init($url);
+         // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         // curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         // $result = curl_exec($ch);
+         // curl_close($ch);
+         // echo $result . "\r\n";   
+
+########################################################################################################################################################
 
 }elseif ($event['message']['text'] == "หนัก" || $event['message']['text'] == "ปานกลาง" || $event['message']['text'] == "เบา"  ) {
                  
@@ -1257,14 +1330,13 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                     'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
                                     ],
                                   [
-                                    'type' => 'uri',
+                                    'type' => 'message',
                                     'label' => 'Nutrition',
-                                    'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+                                    'text' => 'Nutrition'
                                     ]
                                       ]
                                   ]
                               ];
-
 
             // $eatProtein=$weight+25;
 
@@ -1313,7 +1385,12 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                     'type' => 'uri',
                                     'label' => 'ไปยังลิงค์',
                                     'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
-                                  ]
+                                  ],
+                                                                    [
+                                    'type' => 'uri',
+                                    'label' => 'Nutrition',
+                                    'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+                                    ]
                                 ]
                               ]
                             ];
