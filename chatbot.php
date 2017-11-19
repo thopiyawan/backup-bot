@@ -1186,7 +1186,8 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
         }else{
           $total = $cal*1.4;
         }
-
+      $format = number_format($total);
+               
 
   $check_q4 = pg_query($dbconn,"SELECT starches ,vegetables, fruits, meats, fats, lf_milk, c, p, f, g_protein  FROM meal_planing WHERE caloric_level <=$total");
                 while ($row = pg_fetch_row($check_q4)) {
@@ -1237,7 +1238,6 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                   $aaa=$bbb;
                 }
                 
-               
                   $replyToken = $event['replyToken'];
                     
                     $messages = [
