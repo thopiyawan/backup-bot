@@ -239,7 +239,7 @@ class GetMessageController extends Controller
 
                     DB::table('sequentsteps')
                        ->where('sender_id', $user)
-                       ->update(['seqcode' =>'008','answer' => $userMessage ,'nextseqcode' => '0011']);
+                       ->update(['seqcode' =>'0009','answer' => $userMessage ,'nextseqcode' => '0010']);
 
     }elseif ($userMessage == 'ส่วนสูงถูกต้อง' && $seqcode->seqcode == '0008' ) {
                     $textReplyMessage = 'ขอทราบน้ำหนักปกติก่อนตั้งครรภ์ค่ะ (กรุณาตอบเป็นตัวเลขในหน่วยกิโลกรัม เช่น 55)';
