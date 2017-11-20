@@ -19,7 +19,7 @@ for($x = 0; $x <= $arrlength ; $x++) {
        $user_id = pg_escape_string($userid);
        $check = pg_query($dbconn,"SELECT preg_week FROM recordofpregnancy WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
             while ($row = pg_fetch_row($check)) {
-                echo  $p_week =  $row[0]+1;
+                echo  $p_week =  $row[0];
                 } 
         if($p_week>41){
            $messages1 = [
