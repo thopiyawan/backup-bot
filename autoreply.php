@@ -6,7 +6,7 @@ $dbconn = pg_pconnect($conn_string);
 $access_token = 'PeZqsLFQQT/OLTY72fykPCuiSBmU0rwm4McbwCWBeb71ubSjLSZUqh94k9d9ZYQUv6CpfPYSw2hjo3aM4ZSD1lf4MPmXWOFbpNexsPylbQX82wHDqRYCiXmfDNzXyKaoZrxZHPLvrL96JwWQceorwgdB04t89/1O/w1cDnyilFU=';
 $seqcode =[];
 $s =[];
-$check_q = pg_query($dbconn,"SELECT DISTINCT user_id FROM users_register WHERE status = 1   ");
+$check_q = pg_query($dbconn,"SELECT DISTINCT user_id FROM users_register WHERE status = 1  ");
             while ($row = pg_fetch_assoc($check_q)) {
                   $seqcode[] =  $row['user_id'];
                 } 
@@ -21,7 +21,7 @@ for($x = 0; $x <= $arrlength ; $x++) {
             while ($row = pg_fetch_row($check)) {
                 echo  $p_week =  $row[0]+1;
                 } 
-        if($p_week>=42){
+        if($p_week>41){
            $messages1 = [
                         'type' => 'text',
                         'text' => 'ลูกของคุณคลอดแล้ว~'
