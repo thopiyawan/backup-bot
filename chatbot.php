@@ -673,7 +673,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
 
               break;
                  default:
-
+                          $replyToken = $event['replyToken'];
                            $age_pre = 'คุณมีอายุครรภ์'. $m .'สัปดาห์'.  $d .'วัน' ;
                              
                                   $messages = [
@@ -701,6 +701,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                   }
 
                  }
+
 
 
 
