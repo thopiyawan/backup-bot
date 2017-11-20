@@ -1,9 +1,9 @@
 <?php
 //database
-$conn_string = "host=ec2-54-221-207-192.compute-1.amazonaws.com port=5432 dbname=ddarslmntab2u0 user=uuwabnobyyrnfe password=4d97f0b4150eb402dcfbd772910d388e127285bd85f3efea6184fe42da856142 ";
+$conn_string = "host=ec2-54-163-237-25.compute-1.amazonaws.com port=5432 dbname=d1hg7bc7c04gq7 user=tugnvuarplwkmx password=003593e213a5b062c4938ddd79394447d1997095a863f42d02fcafbe38c271bd ";
 $dbconn = pg_pconnect($conn_string);
 //
-$access_token = 'eBp/ZVsDsV2fMTqSBYGq4pgOvc+sgaPxxJFeT/rvpT/WTLiyw44BA2co2RBVROiLPVr8EEMrdiJ2I5cKWBe+j+GhNrHu6FUEHyol1dGf8DM/ZykdR84RgfTU2p+3U9NnhjqhWkDrN0tQT56rf23TxQdB04t89/1O/w1cDnyilFU=';
+$access_token = 'PeZqsLFQQT/OLTY72fykPCuiSBmU0rwm4McbwCWBeb71ubSjLSZUqh94k9d9ZYQUv6CpfPYSw2hjo3aM4ZSD1lf4MPmXWOFbpNexsPylbQX82wHDqRYCiXmfDNzXyKaoZrxZHPLvrL96JwWQceorwgdB04t89/1O/w1cDnyilFU=';
 
 // $content = file_get_contents('php://input');
 // Parse JSON
@@ -33,7 +33,7 @@ for($x = 0; $x <= $arrlength ; $x++) {
         if($p_week>=42){
            $messages1 = [
                         'type' => 'text',
-                        'text' => 'ลูกของุณคลอดแล้ว~'
+                        'text' => 'ลูกของคุณคลอดแล้ว~'
                      ];
                              $url = 'https://api.line.me/v2/bot/message/push';
              $data = [
@@ -59,8 +59,8 @@ for($x = 0; $x <= $arrlength ; $x++) {
                                 'text' => 'สัปดาห์นี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์แล้วนะคะ'
                              ];
                 $messages2 = [ 'type'=> 'image',
-                               'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$p_week.'.jpg',
-                               'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$p_week.'.jpg'
+                               'originalContentUrl'=> 'https://backup-bot.herokuapp.com/week/'.$p_week.'.jpg',
+                               'previewImageUrl'=> 'https://backup-bot.herokuapp.com/week/'.$p_week.'.jpg'
                              ];
               
                 $des_preg = pg_query($dbconn,"SELECT  descript FROM pregnants WHERE  week = $p_week   ");
@@ -76,7 +76,7 @@ for($x = 0; $x <= $arrlength ; $x++) {
                                 'type' => 'text',
                                 'text' => 'สัปดาห์นี้คุณแม่มีน้ำหนักเท่าไรแล้วคะ?'
                              ];
-                $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017','','0000','0',NOW(),NOW())") or die(pg_errormessage()); 
+                $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0013','','0000','0',NOW(),NOW())") or die(pg_errormessage()); 
                 // $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,'0',  NOW()) ") or die(pg_errormessage());        
                      
                  $url = 'https://api.line.me/v2/bot/message/push';
