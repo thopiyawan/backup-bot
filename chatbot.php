@@ -526,23 +526,23 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
 
 ########################################################################################################################################################
 
-}elseif ($event['message']['text'] == "กำหนดการคลอด" /*&& $seqcode == "0015"*/) {
-               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($result)) {
-                  echo $answer = $row[0]; 
-                }   
+// }elseif ($event['message']['text'] == "กำหนดการคลอด" /*&& $seqcode == "0015"*/) {
+//                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
+//                 while ($row = pg_fetch_row($result)) {
+//                   echo $answer = $row[0]; 
+//                 }   
 
-                 $u = pg_escape_string($answer);
- $q = pg_exec($dbconn, "UPDATE users_register SET user_weight = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+//                  $u = pg_escape_string($answer);
+//  $q = pg_exec($dbconn, "UPDATE users_register SET user_weight = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 
-                 $replyToken = $event['replyToken'];
-                 $messages = [
-                        'type' => 'text',
-                        'text' => 'ขอทราบกำหนดการคลอดของคุณหน่อยค่ะ (กรุณาตอบวันที่และเดือนเป็นตัวเลขนะคะ เช่น 17 04 คือ วันที่ 17 เมษายน)'
-                      ];
+//                  $replyToken = $event['replyToken'];
+//                  $messages = [
+//                         'type' => 'text',
+//                         'text' => 'ขอทราบกำหนดการคลอดของคุณหน่อยค่ะ (กรุณาตอบวันที่และเดือนเป็นตัวเลขนะคะ เช่น 17 04 คือ วันที่ 17 เมษายน)'
+//                       ];
 
 
-$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015','','0016','0',NOW(),NOW())") or die(pg_errormessage()); 
+// $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015','','0016','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 ########################################################################################################################################################
 //  }elseif (strlen($_msg) == 5 && $seqcode == "2015") {
