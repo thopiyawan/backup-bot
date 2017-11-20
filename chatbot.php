@@ -940,18 +940,18 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 
                                   $messages = [
                                         'type'=> 'image',
-                                        'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat1.jpg',
-                                        'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat1.jpg'
+                                        'originalContentUrl'=> 'https://backup-bot.herokuapp.com/Manual/eat1.jpg',
+                                        'previewImageUrl'=> 'https://backup-bot.herokuapp.com/Manual/eat1.jpg'
                                     ];
                                   $messages2 = [
                                         'type'=> 'image',
-                                        'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat2.jpg',
-                                        'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat2.jpg'
+                                        'originalContentUrl'=> 'https://backup-bot.herokuapp.com/Manual/eat2.jpg',
+                                        'previewImageUrl'=> 'https://backup-bot.herokuapp.com/Manual/eat2.jpg'
                                     ];
                                   $messages3 = [
                                         'type'=> 'image',
-                                        'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat3.jpg',
-                                        'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/eat3.jpg'
+                                        'originalContentUrl'=> 'https://backup-bot.herokuapp.com/Manual/eat3.jpg',
+                                        'previewImageUrl'=> 'https://backup-bot.herokuapp.com/Manual/eat3.jpg'
                                     ];
   
 
@@ -983,18 +983,18 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 
                                   $messages = [
                                         'type'=> 'image',
-                                        'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/exercise.jpg',
-                                        'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/exercise.jpg'
+                                        'originalContentUrl'=> 'https://backup-bot.herokuapp.com/Manual/exercise.jpg',
+                                        'previewImageUrl'=> 'https://backup-bot.herokuapp.com/Manual/exercise.jpg'
                                     ];
                                   $messages2 = [
                                         'type'=> 'image',
-                                        'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/exercise2.jpg',
-                                        'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/exercise2.jpg'
+                                        'originalContentUrl'=> 'https://backup-bot.herokuapp.com/Manual/exercise2.jpg',
+                                        'previewImageUrl'=> 'https://backup-bot.herokuapp.com/Manual/exercise2.jpg'
                                     ];
                                   $messages3 = [
                                         'type'=> 'image',
-                                        'originalContentUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/exercise3.jpg',
-                                        'previewImageUrl'=> 'https://chatbot-nutrition-pregnant.herokuapp.com/Manual/exercise3.jpg'
+                                        'originalContentUrl'=> 'https://backup-bot.herokuapp.com/Manual/exercise3.jpg',
+                                        'previewImageUrl'=> 'https://backup-bot.herokuapp.com/Manual/exercise3.jpg'
                                     ];
                 
 
