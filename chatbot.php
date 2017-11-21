@@ -1329,6 +1329,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
 
                  $ccc =  "น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกๆลังกายดูไหมคะ". "\n".
                           "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
+                 $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
                   $replyToken = $event['replyToken'];
                   
                     if ($bmi>=24.9 ) {
@@ -1388,14 +1389,17 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                                       ]
                                   ]
                               ];
-
+                          $messages2 = [
+                            'type' => 'text',
+                            'text' => $rec
+                      ];
                     }
                       
 /*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
            
-/*                if ($preg_week >=13 && $preg_week<=40) {
+                if ($preg_week >=13 && $preg_week<=40) {
                   $a = $total+300;
-                  $format2 = number_format($a);  */  
+                  $format2 = number_format($a);    
                       $messages3 = [
                                                               
                         'type' => 'template',
@@ -1403,7 +1407,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                         'template' => [
                             'type' => 'buttons',
                             //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
-                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format,
+                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format2,
                             'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
                             'actions' => [
 
@@ -1420,7 +1424,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                                 ]
                               ]
                             ];
-/*                   }else{
+                   }else{
                       
                       $messages3 = [
                                                               
@@ -1447,7 +1451,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                               ]
                             ];
                   }
-        */
+        
 
 
 
