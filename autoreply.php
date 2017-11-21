@@ -1,6 +1,6 @@
 <?php
 //database
-$conn_string = "host=ec2-54-163-237-25.compute-1.amazonaws.com port=5432 dbname=d1hg7bc7c04gq7 user=tugnvuarplwkmx password=003593e213a5b062c4938ddd79394447d1997095a863f42d02fcafbe38c271bd ";
+/*$conn_string = "host=ec2-54-163-237-25.compute-1.amazonaws.com port=5432 dbname=d1hg7bc7c04gq7 user=tugnvuarplwkmx password=003593e213a5b062c4938ddd79394447d1997095a863f42d02fcafbe38c271bd ";
 $dbconn = pg_pconnect($conn_string);
 //
 $access_token = 'PeZqsLFQQT/OLTY72fykPCuiSBmU0rwm4McbwCWBeb71ubSjLSZUqh94k9d9ZYQUv6CpfPYSw2hjo3aM4ZSD1lf4MPmXWOFbpNexsPylbQX82wHDqRYCiXmfDNzXyKaoZrxZHPLvrL96JwWQceorwgdB04t89/1O/w1cDnyilFU=';
@@ -89,5 +89,5 @@ for($x = 0; $x <= $arrlength ; $x++) {
                  echo $result . "\r\n";
         }
 }
- 
+ */
 ?>
