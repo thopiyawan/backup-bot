@@ -161,7 +161,7 @@ class GetMessageController extends Controller
                     $sequentsteps = DB::table('sequentsteps')
                        ->where('sender_id', $user)
                        ->update(['seqcode' =>'0007','nextseqcode' => '0008']);
-                    $users_register= DB::table('users_register')->insert(['user_id'=>$user,'user_name' => $answer ,'status' => '1','user_age'=>'0','user_height'=>'0','user_Pre_weight'=>'0','user_weight'=>'0','preg_week'=>'0', 'phone_number'=>'0','email' =>'email@gmail.com','hospital_name'=>'aa','hospital_number'=>'0','history_medicine'=>'a', 'history_food'=>'a','active_lifestyle'=>'0','updated_at' =>NOW()]);
+                    $users_register= DB::table('users_register')->insert(['user_id'=>$user,'user_name' => $answer ,'status' => '1','user_age'=>'0','user_height'=>'0','user_Pre_weight'=>'0','user_weight'=>'0','preg_week'=>'0', 'phone_number'=>'NULL','email' =>'NULL','hospital_name'=>'NULL','hospital_number'=>'NULL','history_medicine'=>'NULL', 'history_food'=>'NULL','active_lifestyle'=>'0','updated_at' =>NOW()]);
 
     }elseif(is_string($userMessage) !== false && $seqcode->seqcode  == '0005' ){
 
@@ -239,7 +239,7 @@ class GetMessageController extends Controller
 
                     DB::table('sequentsteps')
                        ->where('sender_id', $user)
-                       ->update(['seqcode' =>'0009','answer' => $userMessage ,'nextseqcode' => '0010']);
+                       ->update(['seqcode' =>'008','answer' => $userMessage ,'nextseqcode' => '0011']);
 
     }elseif ($userMessage == 'ส่วนสูงถูกต้อง' && $seqcode->seqcode == '0008' ) {
                     $textReplyMessage = 'ขอทราบน้ำหนักปกติก่อนตั้งครรภ์ค่ะ (กรุณาตอบเป็นตัวเลขในหน่วยกิโลกรัม เช่น 55)';
@@ -837,27 +837,8 @@ class GetMessageController extends Controller
                     //    ->where('user_id', $user)
                     //    ->update(['history_medicine' => $answer ]);
 
-    }elseif (is_string($userMessage) !== false && $seqcode->seqcode == '1027' ) {
 
-                    $sequentsteps = DB::table('sequentsteps')
-                       ->where('sender_id', $user)
-                       ->update(['seqcode' =>'0028','nextseqcode' => '0029']);
-                    $users_register = DB::table('users_register')
-                       ->where('user_id', $user)
-                       ->update(['history_food' => $userMessage]);
-                    $textReplyMessage = '22222';
-                    $replyData = new TextMessageBuilder($textReplyMessage);
-    
-   }elseif($userMessage == 'ไม่แพ้อาหาร' ){
-                     $sequentsteps = DB::table('sequentsteps')
-                       ->where('sender_id', $user)
-                       ->update(['seqcode' =>'0027','nextseqcode' => '0028']);
-                    $users_register = DB::table('users_register')
-                       ->where('user_id', $user)
-                       ->update(['history_food' => $userMessage]);
-
-
-   }elseif($userMessage == 'ไม่แพ้ยา'){
+     }elseif($userMessage == 'ไม่แพ้ยา'){
     
                     $replyData = new TemplateMessageBuilder('Confirm Template', new ConfirmTemplateBuilder( "คุณมีประวัติการแพ้อาหารไหมคะ?",
                                 array(
@@ -872,12 +853,6 @@ class GetMessageController extends Controller
                                 )
                         )
                     );
-                    // $answer = DB::table('sequentsteps')
-                    //  ->select('answer')
-                    //  ->where('sender_id', $user)
-                    //  ->first();
-                    // $answer = $answer->answer;
-
                     $sequentsteps = DB::table('sequentsteps')
                        ->where('sender_id', $user)
                        ->update(['seqcode' =>'0027','nextseqcode' => '0028']);
@@ -885,11 +860,514 @@ class GetMessageController extends Controller
                        ->where('user_id', $user)
                        ->update(['history_medicine' => $userMessage]);
 
-   }else{
+
+    }elseif (is_string($userMessage) !== false && $seqcode->seqcode == '1027' ) {
+
+                    $sequentsteps = DB::table('sequentsteps')
+                       ->where('sender_id', $user)
+                       ->update(['seqcode' =>'0028','nextseqcode' => '0029']);
+                    $users_register = DB::table('users_register')
+                       ->where('user_id', $user)
+                       ->update(['history_food' => $userMessage]);
+        
+                  $textReplyMessage = "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน?";
+                  $textMessage1 = new TextMessageBuilder($textReplyMessage);
+                  $textReplyMessage = "รายละเอียดของระดับ". "\n".
+                "เบา -  วิถีชีวิตทั่วไป ไม่มีการออกกำลังกาย หรือมีการออกกำลังกายน้อย". "\n".
+                "ปานกลาง - วิถีชีวิตกระฉับกระเฉง หรือ มีการออกกำลังกายสม่ำเสมอ". "\n".
+                "หนัก - วิถีชีวิตมีการใช้แรงงานหนัก ออกกำลังกายหนักเป็นประจำ". "\n";
+                  $textMessage2 = new TextMessageBuilder($textReplyMessage);
+                  $actionBuilder = array(
+                                          new MessageTemplateActionBuilder(
+                                          'เบา',// ข้อความแสดงในปุ่ม
+                                          'เบา' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                                          ),
+                                           new MessageTemplateActionBuilder(
+                                          'ปานกลาง',// ข้อความแสดงในปุ่ม
+                                          'ปานกลาง' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                                          ),
+                                           new MessageTemplateActionBuilder(
+                                          'หนัก',// ข้อความแสดงในปุ่ม
+                                          'หนัก' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                                          ) 
+                                         );
+
+                     $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+                    $textMessage3 = new TemplateMessageBuilder('Button Template',
+                     new ButtonTemplateBuilder(
+                              'ระดับของการออกกำลังกาย', // กำหนดหัวเรื่อง
+                              'เลือกระดับด้านล่างได้เลยค่ะ', // กำหนดรายละเอียด
+                               $imageUrl, // กำหนด url รุปภาพ
+                               $actionBuilder  // กำหนด action object
+                         )
+                      );                            
+
+                  $multiMessage =     new MultiMessageBuilder;
+                  $multiMessage->add($textMessage1);
+                  $multiMessage->add($textMessage2);
+                  $multiMessage->add($textMessage3);
+                  $replyData = $multiMessage; 
+            
+
+
+    
+   }elseif($userMessage == 'ไม่แพ้อาหาร' ){
+                     $sequentsteps = DB::table('sequentsteps')
+                       ->where('sender_id', $user)
+                       ->update(['seqcode' =>'0027','nextseqcode' => '0028']);
+                    $users_register = DB::table('users_register')
+                       ->where('user_id', $user)
+                       ->update(['history_food' => $userMessage]);
+
+                    $sequentsteps = DB::table('sequentsteps')
+                       ->where('sender_id', $user)
+                       ->update(['seqcode' =>'0028','nextseqcode' => '0029']);
+                    $users_register = DB::table('users_register')
+                       ->where('user_id', $user)
+                       ->update(['history_food' => $userMessage]);
+        
+                  $textReplyMessage = "ช่วงระหว่างการตั้งครรภ์คุณออกกำลังกายในระดับไหน?";
+                  $textMessage1 = new TextMessageBuilder($textReplyMessage);
+                  $textReplyMessage = "รายละเอียดของระดับ". "\n".
+                "เบา -  วิถีชีวิตทั่วไป ไม่มีการออกกำลังกาย หรือมีการออกกำลังกายน้อย". "\n".
+                "ปานกลาง - วิถีชีวิตกระฉับกระเฉง หรือ มีการออกกำลังกายสม่ำเสมอ". "\n".
+                "หนัก - วิถีชีวิตมีการใช้แรงงานหนัก ออกกำลังกายหนักเป็นประจำ". "\n";
+                  $textMessage2 = new TextMessageBuilder($textReplyMessage);
+                  $actionBuilder = array(
+                                          new MessageTemplateActionBuilder(
+                                          'เบา',// ข้อความแสดงในปุ่ม
+                                          'เบา' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                                          ),
+                                           new MessageTemplateActionBuilder(
+                                          'ปานกลาง',// ข้อความแสดงในปุ่ม
+                                          'ปานกลาง' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                                          ),
+                                           new MessageTemplateActionBuilder(
+                                          'หนัก',// ข้อความแสดงในปุ่ม
+                                          'หนัก' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                                          ) 
+                                         );
+
+                     $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+                    $textMessage3 = new TemplateMessageBuilder('Button Template',
+                     new ButtonTemplateBuilder(
+                              'ระดับของการออกกำลังกาย', // กำหนดหัวเรื่อง
+                              'เลือกระดับด้านล่างได้เลยค่ะ', // กำหนดรายละเอียด
+                               $imageUrl, // กำหนด url รุปภาพ
+                               $actionBuilder  // กำหนด action object
+                         )
+                      );                            
+
+                  $multiMessage =     new MultiMessageBuilder;
+                  $multiMessage->add($textMessage1);
+                  $multiMessage->add($textMessage2);
+                  $multiMessage->add($textMessage3);
+                  $replyData = $multiMessage; 
+            
+   }elseif($userMessage == 'เบา' || $userMessage == 'หนัก'  ||$userMessage == 'ปานกลาง' ){
+   
+                $users = DB::table('users_register')
+                     ->select('user_weight','user_height','preg_week','user_age')
+                     ->where('user_id', $user)
+                     ->first();
+                $user_weight = $users->user_weight;
+                $user_height = $users->user_height;             
+                $preg_week   = $users->preg_week;
+                $user_age    = $users->user_age;
+
+
+                $height = $user_height*0.01;
+                $bmi = $user_weight/($height*$height);
+                $bmi = number_format($bmi, 2, '.', '');
+                    if ($bmi<18.5) {
+                      $result="Underweight";
+                    } elseif ($bmi>=18.5 && $bmi<24.9) {
+                      $result="Nomal weight";
+                    } elseif ($bmi>=24.9 && $bmi<=29.9) {
+                      $result="Overweight";
+                    }else{
+                      $result="Obese";
+                    }
+
+                if ($bmi>=24.9 ) {
+                  $actionBuilder = array(
+                        new UriTemplateActionBuilder(
+                            'กราฟ', // ข้อความแสดงในปุ่ม
+                            'https://www.google.com'
+                        ),
+                        new MessageTemplateActionBuilder(
+                            'ทารกในครรภ์',// ข้อความแสดงในปุ่ม
+                            'ทารกในครรภ์' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        ), 
+                    );
+                    $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+                    $textMessage1 = new TemplateMessageBuilder('Button Template',
+                        new ButtonTemplateBuilder(
+                                'ขณะนี้คุณมีอายุครรภ์'.$preg_week.'สัปดาห์', // กำหนดหัวเรื่อง
+                                'ค่าดัชนีมวลกายของคุณคือ'.$bmi.'อยู่ในเกณฑ์'. $result, // กำหนดรายละเอียด
+                                $imageUrl, // กำหนด url รุปภาพ
+                                $actionBuilder  // กำหนด action object
+                        )
+                    );   
+
+
+
+                $textReplyMessage = 'น้ำหนักของคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกำลังกายดูไหมคะ'."\n".
+                       'หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ';
+                $textMessage2 = new TextMessageBuilder($textReplyMessage); 
+
+               
+            
+                }else{
+                    $actionBuilder = array(
+                        new UriTemplateActionBuilder(
+                            'กราฟ', // ข้อความแสดงในปุ่ม
+                            'https://www.google.com'
+                        ),
+                        new MessageTemplateActionBuilder(
+                            'ทารกในครรภ์',// ข้อความแสดงในปุ่ม
+                            'ทารกในครรภ์' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        ), 
+                    );
+                    $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+                    $textMessage1 = new TemplateMessageBuilder('Button Template',
+                        new ButtonTemplateBuilder(
+                                'ขณะนี้คุณมีอายุครรภ์'.$preg_week.'สัปดาห์', // กำหนดหัวเรื่อง
+                                'ค่าดัชนีมวลกายของคุณคือ'.$bmi.'อยู่ในเกณฑ์'. $result, // กำหนดรายละเอียด
+                                $imageUrl, // กำหนด url รุปภาพ
+                                $actionBuilder  // กำหนด action object
+                        )
+                    );   
+
+
+                }
+    
+
+
+        if ( $user_age>=10 && $user_age<18) {
+          $cal=(13.384*$user_weight )+692.6;
+        }elseif ($user_age>18 && $user_age<31) {
+          $cal=(14.818*$user_weight )+486.6;
+        }else{
+          $cal=(8.126*$user_weight )+845.6;
+        }
+
+
+        if ($userMessage=='หนัก'  ) {
+          $total = $cal*2.0;
+        }elseif($userMessage=='ปานกลาง') {
+          $total = $cal*1.7;
+        }else{
+          $total = $cal*1.4;
+        }
+
+        $format = number_format($total);
+               
+    if ($preg_week >=13 && $preg_week<=40) {
+                  $a = $total+300;
+                  $format2 = number_format($a);  
+
+                   $actionBuilder = array(
+                        new UriTemplateActionBuilder(
+                            'ไปยังลิงค์', // ข้อความแสดงในปุ่ม
+                            'https://www.google.com'
+                        ),
+                        new MessageTemplateActionBuilder(
+                            'Nutrition',// ข้อความแสดงในปุ่ม
+                            'Nutrition' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        ), 
+                    );
+                    $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+                    $textMessage3 = new TemplateMessageBuilder('Button Template',
+                        new ButtonTemplateBuilder(
+                                'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format2, // กำหนดหัวเรื่อง
+                                'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ'. $result, // กำหนดรายละเอียด
+                                $imageUrl, // กำหนด url รุปภาพ
+                                $actionBuilder  // กำหนด action object
+                        )
+                    );   
+
+
+    }else{
+
+                $actionBuilder = array(
+                        new UriTemplateActionBuilder(
+                            'ไปยังลิงค์', // ข้อความแสดงในปุ่ม
+                            'https://www.google.com'
+                        ),
+                        new MessageTemplateActionBuilder(
+                            'Nutrition',// ข้อความแสดงในปุ่ม
+                            'Nutrition' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        ), 
+                    );
+                    $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+                    $textMessage3 = new TemplateMessageBuilder('Button Template',
+                        new ButtonTemplateBuilder(
+                                'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format, // กำหนดหัวเรื่อง
+                                'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ'.$result, // กำหนดรายละเอียด
+                                $imageUrl, // กำหนด url รุปภาพ
+                                $actionBuilder  // กำหนด action object
+                        )
+                    );   
+    }  
+
+
+
+
+
+
+    $ReplyMessage = new TextMessageBuilder($textReplyMessage); 
+                  $multiMessage = new MultiMessageBuilder;
+                  $multiMessage->add($textMessage1);
+                  $multiMessage->add($textMessage2);
+                  $multiMessage->add($textMessage3);
+                  $replyData = $multiMessage; 
+
+
+
+        DB::table('sequentsteps')
+        ->where('sender_id', $user)
+        ->update(['seqcode' =>'0000','answer' => $userMessage ,'nextseqcode' => '0000']);
+
+
+
+
+
+
+
+        // if ($bmi<18.5) {
+        //   $result="Underweight";
+        // } elseif ($bmi>=18.5 && $bmi<24.9) {
+        //   $result="Nomal weight";
+        // } elseif ($bmi>=24.9 && $bmi<=29.9) {
+        //   $result="Overweight";
+        // }else{
+        //   $result="Obese";
+        // }
+
+        // if ( $user_age>=10 && $user_age<18) {
+        //   $cal=(13.384*$user_weight )+692.6;
+        // }elseif ($user_age>18 && $user_age<31) {
+        //   $cal=(14.818*$user_weight )+486.6;
+        // }else{
+        //   $cal=(8.126*$user_weight )+845.6;
+        // }
+
+
+        // if ($userMessage=="หนัก"  ) {
+        //   $total = $cal*2.0;
+        // }elseif($userMessage=="ปานกลาง") {
+        //   $total = $cal*1.7;
+        // }else{
+        //   $total = $cal*1.4;
+        // }
+
+        // $format = number_format($total);
+               
+
+        // $meal_planing = DB::table('meal_planing')
+        //              ->select('starches' ,'vegetables', 'fruits', 'meats', 'fats', 'lf_milk', 'c', 'p', 'f', 'g_protein')
+        //              ->where('caloric_level', '<=', $total)
+        //              ->get();
+
+        //         $starches    = $meal_planing->starches;
+        //         $vegetables  = $meal_planing->vegetables;
+        //         $fruits      = $meal_planing->fruits;
+        //         $meats       = $meal_planing->meats;
+        //         $fats        = $meal_planing->fats;
+        //         $lf_milk     = $meal_planing->lf_milk;
+        //         $c           = $meal_planing->c;
+        //         $p           = $meal_planing->p;
+        //         $f           = $meal_planing->f;
+        //         $g_protein   = $meal_planing->g_protein;
+
+        //     $Nutrition =  "พลังงานที่ต้องการในแต่ละวันคือ". "\n".
+        //                   "-ข้าววันละ". $starches ."ทัพพี". "\n".
+        //                   "-ผักวันละ". $vegetables. "ทัพพี"."\n".
+        //                   "-ผลไม้วันละ".$fruits."ส่วน (1 ส่วนคือปริมาณผลไม้ที่จัดใส่จานรองกาแฟเล็ก ๆ ได้ 1 จานพอดี)"."\n".
+        //                   "-เนื้อวันละ" .$meats. "ส่วน (1 ส่วนคือ 2 ช้อนโต๊ะ)"."\n".
+        //                   "-ไขมันวันละ" .$fats. "ช้อนชา"."\n".
+        //                   "-นมไขมันต่ำวันละ" .$lf_milk. "แก้ว";
+
+        //      if ($total < 1601) {
+        //           $aaa=$Nutrition;
+        //         } elseif ($total > 1600 && $total<1701) {
+        //           $aaa=$Nutrition;
+        //         }elseif ($total >1700 && $total<1801) {
+        //           $aaa=$Nutrition;
+        //         }elseif ($total >1800 && $total<1901) {
+        //          $aaa=$Nutrition;
+        //         }elseif ($total >1900 && $total<2001) {
+        //           $aaa=$Nutrition;
+        //         }elseif ($total >2000 && $total<2101 ) {
+        //           $aaa=$Nutrition;
+        //         }elseif ($total > 2100 && $total<2201) {
+        //           $aaa=$Nutrition;
+        //         }elseif ($total > 2200 && $total <2301) {
+        //           $aaa=$Nutrition;
+        //         }elseif ($total > 2300 && $total <2401) {
+        //           $aaa=$Nutrition;
+        //         }elseif ($total > 2400 && $total <2501) {
+        //          $aaa=$Nutrition;
+        //         }else {
+        //           $aaa=$Nutrition;
+        //         }
+
+        // $textReplyMessage = 'น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกๆลังกายดูไหมคะ". "\n".
+        //                   "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ';
+        // $replyData = new TextMessageBuilder($textReplyMessage);
+        //     if($bmi>=24.9){
+        //             $textMessage2 = new TextMessageBuilder($textReplyMessage);
+        //             $actionBuilder = array(
+        //                                   new MessageTemplateActionBuilder(
+        //                                   'กราฟ',// ข้อความแสดงในปุ่ม
+        //                                   'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   ),
+        //                                    new MessageTemplateActionBuilder(
+        //                                   'ทารกในครรภ์',// ข้อความแสดงในปุ่ม
+        //                                   'ทารกในครรภ์' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   )
+        //                                  );
+
+        //             $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+        //             $textMessage3 = new TemplateMessageBuilder('Button Template',
+        //              new ButtonTemplateBuilder(
+        //                       'ขณะนี้คุณมีอายุครรภ์'.$preg_week.'สัปดาห์', // กำหนดหัวเรื่อง
+        //                       'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result, // กำหนดรายละเอียด
+        //                        $imageUrl, // กำหนด url รุปภาพ
+        //                        $actionBuilder  // กำหนด action object
+        //                  )
+        //               );   
+
+
+
+        //             $textReplyMessage = 'น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกๆลังกายดูไหมคะ". "\n".
+        //                   "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ';
+        //             $replyData = new TextMessageBuilder($textReplyMessage); 
+        //     }else{
+
+        //             $textMessage1 = new TextMessageBuilder($textReplyMessage);
+        //             $actionBuilder = array(
+        //                                   new MessageTemplateActionBuilder(
+        //                                   'กราฟ',// ข้อความแสดงในปุ่ม
+        //                                   'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   ),
+        //                                    new MessageTemplateActionBuilder(
+        //                                   'ทารกในครรภ์',// ข้อความแสดงในปุ่ม
+        //                                   'ทารกในครรภ์' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   )
+        //                                  );
+
+        //             $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+        //             $textMessage2 = new TemplateMessageBuilder('Button Template',
+        //              new ButtonTemplateBuilder(
+        //                       'ขณะนี้คุณมีอายุครรภ์'.$preg_week.'สัปดาห์', // กำหนดหัวเรื่อง
+        //                       'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result, // กำหนดรายละเอียด
+        //                        $imageUrl, // กำหนด url รุปภาพ
+        //                        $actionBuilder  // กำหนด action object
+        //                  )
+        //               );   
+
+        //           $multiMessage =     new MultiMessageBuilder;
+        //           $multiMessage->add($textMessage1);
+        //           $multiMessage->add($textMessage2);
+        //           $replyData = $multiMessage; 
+
+        //          }
+
+
+        //          if ($preg_week >=13 && $preg_week<=40) {
+        //             $a = $total+300;
+        //             $format2 = number_format($a);    
+
+        //             $textMessage1 = new TextMessageBuilder($textReplyMessage);
+        //             $actionBuilder = array(
+        //                                   new MessageTemplateActionBuilder(
+        //                                   'ไปยังลิงค์',// ข้อความแสดงในปุ่ม
+        //                                   'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   ),
+        //                                    new MessageTemplateActionBuilder(
+        //                                   'Nutrition',// ข้อความแสดงในปุ่ม
+        //                                   'Nutrition' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   )
+        //                                  );
+
+        //             $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+        //             $textMessage2 = new TemplateMessageBuilder('Button Template',
+        //              new ButtonTemplateBuilder(
+        //                       'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format2, // กำหนดหัวเรื่อง
+        //                       'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ', // กำหนดรายละเอียด
+        //                        $imageUrl, // กำหนด url รุปภาพ
+        //                        $actionBuilder  // กำหนด action object
+        //                  )
+        //               );   
+        //           $multiMessage =     new MultiMessageBuilder;
+        //           $multiMessage->add($textMessage1);
+        //           $multiMessage->add($textMessage2);
+        //           $replyData = $multiMessage; 
+
+
+
+        //           }else{
+
+        //              $textMessage1 = new TextMessageBuilder($textReplyMessage);
+        //             $actionBuilder = array(
+        //                                   new MessageTemplateActionBuilder(
+        //                                   'ไปยังลิงค์',// ข้อความแสดงในปุ่ม
+        //                                   'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   ),
+        //                                    new MessageTemplateActionBuilder(
+        //                                   'Nutrition',// ข้อความแสดงในปุ่ม
+        //                                   'Nutrition' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+        //                                   )
+        //                                  );
+
+        //             $imageUrl = 'https://www.mywebsite.com/imgsrc/photos/w/simpleflower';
+        //             $textMessage2 = new TemplateMessageBuilder('Button Template',
+        //              new ButtonTemplateBuilder(
+        //                       'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format, // กำหนดหัวเรื่อง
+        //                       'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ', // กำหนดรายละเอียด
+        //                        $imageUrl, // กำหนด url รุปภาพ
+        //                        $actionBuilder  // กำหนด action object
+        //                  )
+        //               );  
+        //           $multiMessage =     new MultiMessageBuilder;
+        //           $multiMessage->add($textMessage1);
+        //           $multiMessage->add($textMessage2);
+        //           $replyData = $multiMessage; 
+
+
+// }
+
+
+}elseif($userMessage == 'ทารกในครรภ์'){
+
+        $users = DB::table('users_register')
+                     ->select('preg_week')
+                     ->where('user_id', $user)
+                     ->first();
+
+        $preg_week   = $users->preg_week; 
+
+        $pregnants = DB::table('pregnants')
+                     ->select('descript')
+                     ->where('week', $preg_week)
+                     ->first();
+
+        $descript = $pregnants->descript;
+        $replyData = new TextMessageBuilder($descript);
+
+}elseif($userMessage == 'Nutrition'){
+
+        
+
+
+
+}else{
          $textReplyMessage = 'ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ';
          $replyData = new TextMessageBuilder($textReplyMessage);
                   
-   }
+}
     $response = $bot->replyMessage($replyToken,$replyData);
 
 }}}
