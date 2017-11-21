@@ -543,6 +543,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
  }elseif (strlen($_msg) == 5 && $seqcode == "2015") {
+                
                  $pieces = explode(" ", $_msg);
                  $date   = str_replace("","",$pieces[0]);
                  $month  = str_replace("","",$pieces[1]);
@@ -591,7 +592,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                         ]
                     ];   
 
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
 
                 break;
                  default:
@@ -619,7 +620,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                       ]
                                   ];   
 
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
               
               break;
                   }
@@ -666,7 +667,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                         ]
                     ];   
 
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
 
               break;
                  default:
@@ -693,7 +694,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                           ]
                                       ]
                                   ];  
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
                   break;
                   }
 
@@ -717,7 +718,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
          $result = curl_exec($ch);
          curl_close($ch);
          echo $result . "\r\n";
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $week_preg ,'0017','0',NOW(),NOW())") or die(pg_errormessage());
+    // $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $week_preg ,'0017','0',NOW(),NOW())") or die(pg_errormessage());
 
 
 
