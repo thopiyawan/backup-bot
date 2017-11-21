@@ -1228,7 +1228,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
 
 ########################################################################################################################################################
 
-}elseif ($event['message']['text'] == "หนัก" || $event['message']['text'] == "ปานกลาง" || $event['message']['text'] == "เบา" && $seqcode == "1001" ) {
+}elseif ($event['message']['text'] == "หนัก" || $event['message']['text'] == "ปานกลาง" || $event['message']['text'] == "เบา" ) {
                  
 
      $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
@@ -1633,24 +1633,11 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 $q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0026','{$u}','0027','0',NOW(),NOW())") or die(pg_errormessage());
 
-########################################################################################################### 
 
-
-}elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
-    
-     $replyToken = $event['replyToken'];
-      $text = "ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ";
-      $messages = [
-          'type' => 'text',
-          'text' => $text
-        ]; 
 
 
 
 ########################################################################################################################################################
-
-
-
 
   }else {
    $replyToken = $event['replyToken'];
@@ -1679,8 +1666,19 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
        
   }
   
-  
+########################################################################################################### 
+
+}if ($event['type'] == 'message' && $event['message']['type'] == 'text'){
+    
+     $replyToken = $event['replyToken'];
+      $text = "ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ";
+      $messages = [
+          'type' => 'text',
+          'text' => $text
+        ]; 
+ 
  }
+
 }
   // Make a POST Request to Messaging API to reply to sender
          $url = 'https://api.line.me/v2/bot/message/reply';
