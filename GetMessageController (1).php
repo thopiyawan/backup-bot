@@ -348,7 +348,7 @@ class GetMessageController extends Controller
 
                     $sequentsteps = DB::table('sequentsteps')
                        ->where('sender_id', $user)
-                       ->update(['seqcode' =>'00015','nextseqcode' => '0016']);
+                       ->update(['seqcode' =>'0015','nextseqcode' => '0016']);
                     $users_register = DB::table('users_register')
                        ->where('user_id', $user)
                        ->update(['user_weight' => $answer ]);
