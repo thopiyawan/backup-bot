@@ -744,7 +744,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
             
                   echo $p_weight = $row[0];  
                 } 
- $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_weight, preg_week,updated_at )VALUES('{$user_id}',$p_weight,$answer ,  NOW()) ") or die(pg_errormessage());  
+ $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_weight, preg_week,updated_at )VALUES('{$user_id}', $p_weight , $answer ,  NOW()) ") or die(pg_errormessage());  
 
 ###########################################################################################################
 
@@ -1390,7 +1390,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                     }
                       
 /*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
-
+                  $replyToken = $event['replyToken'];
                 if ($preg_week >=13 && $preg_week<=40) {
                   $a = $total+300;
                   $format2 = number_format($a);    
@@ -1448,12 +1448,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
         
 
 
-              
-
-
-
-
-
+          
 
     $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
