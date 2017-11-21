@@ -1231,35 +1231,27 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
 }elseif ($event['message']['text'] == "หนัก" || $event['message']['text'] == "ปานกลาง" || $event['message']['text'] == "เบา"  ) {
                  
 
-
-     $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
+     $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q2)) {
             
                   echo $weight = $row[0]; 
                   echo $height = $row[1]; 
-                  echo $preg_week = $row[2]; 
+                  echo $preg_week = $row[2];
+                  echo $age = $row[3]; 
                 } 
+
+
+                  $bbb =  "พลังงานที่ต้องการในแต่ละวันคือ". "\n".
+                          "-ข้าววันละ". $starches ."ทัพพี". "\n".
+                          "-ผักวันละ". $vegetables. "ทัพพี"."\n".
+                          "-ผลไม้วันละ".$fruits."ส่วน (1 ส่วนคือปริมาณผลไม้ที่จัดใส่จานรองกาแฟเล็ก ๆ ได้ 1 จานพอดี)"."\n".
+                          "-เนื้อวันละ" .$meats. "ส่วน (1 ส่วนคือ 2 ช้อนโต๊ะ)"."\n".
+                          "-ไขมันวันละ" .$fats. "ช้อนชา"."\n".
+                          "-นมไขมันต่ำวันละ" .$lf_milk. "แก้ว";
+
+
+ /*คำนวณ BMI และบอกว่าอยู่ในเกณฑ์ไหน*/               
           $height1 =$height*0.01;
-                  $bmi = $weight/($height1*$height1);
-                  $bmi = number_format($bmi, 2, '.', '');
-
-
-
-
-                 // $messages2 = [
-                 //        'type' => 'text',
-                 //        'text' => 'ขอบคุณสำหรับข้อมูลนะคะ'
-                 //      ];
-
-
-   $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($check_q2)) {
-            
-                  echo $weight = $row[0]; 
-                  echo $height = $row[1]; 
-                  echo $preg_week = $row[2]; 
-                } 
-                  $height1 =$height*0.01;
                   $bmi = $weight/($height1*$height1);
                   $bmi = number_format($bmi, 2, '.', '');
 
@@ -1273,14 +1265,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
           $result="Obese";
         }
 
-   $check_q3 = pg_query($dbconn,"SELECT user_weight,user_age,preg_week  FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($check_q3)) {
-            
-                  echo $weight = $row[0]; 
-                  echo $age = $row[1];
-                  echo $preg_week = $row[2];
-                } 
-
+/*นำน้ำหนักมาคำนวณหาพลังงานและสารอาหารโดยใช้สูตรFAOแบ่งตามอายุ ตัวเลขที่ได้จะเป็นพลังงานที่ใช้ในขณะพักผ่อน*/
         if ($age>=10 && $age<18) {
           $cal=(13.384*$weight)+692.6;
         }elseif ($age>18 && $age<31) {
@@ -1288,7 +1273,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
         }else{
           $cal=(8.126*$weight)+845.6;
         }
-
+/*กิจกรรมทางกาย*/
         if ($_msg=="หนัก"  ) {
           $total = $cal*2.0;
         }elseif($_msg=="ปานกลาง") {
@@ -1315,15 +1300,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
           echo $g_protein  = $row[9];
 
                 } 
-
-                  $bbb =  "พลังงานที่ต้องการในแต่ละวันคือ". "\n".
-                          "-ข้าววันละ". $starches ."ทัพพี". "\n".
-                          "-ผักวันละ". $vegetables. "ทัพพี"."\n".
-                          "-ผลไม้วันละ".$fruits."ส่วน (1 ส่วนคือปริมาณผลไม้ที่จัดใส่จานรองกาแฟเล็ก ๆ ได้ 1 จานพอดี)"."\n".
-                          "-เนื้อวันละ" .$meats. "ส่วน (1 ส่วนคือ 2 ช้อนโต๊ะ)"."\n".
-                          "-ไขมันวันละ" .$fats. "ช้อนชา"."\n".
-                          "-นมไขมันต่ำวันละ" .$lf_milk. "แก้ว";
-
+/*จำนวนแคลอรี่*/
                 if ($total < 1601) {
                   $aaa=$bbb;
                 } elseif ($total > 1600 && $total<1701) {
@@ -1346,8 +1323,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                  $aaa=$bbb;
                 }else {
                   $aaa=$bbb;
-                }
-                
+                }                
 
                  $ccc =  "น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกๆลังกายดูไหมคะ". "\n".
                           "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
@@ -1413,8 +1389,8 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
 
                     }
                       
-                   
-
+/*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
+                $replyToken = $event['replyToken'];
                 if ($preg_week >=13 && $preg_week<=40) {
                   $a = $total+300;
                   $format2 = number_format($a);    
@@ -1469,6 +1445,12 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                               ]
                             ];
         }
+        
+
+
+              
+
+
 
 
 
