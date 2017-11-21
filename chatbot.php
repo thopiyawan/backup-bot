@@ -1331,7 +1331,65 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                           "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
                  $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
                   $replyToken = $event['replyToken'];
-                  
+  
+/*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
+           
+                if ($preg_week >=13 && $preg_week<=40) {
+                  $a = $total+300;
+                  $format2 = number_format($a);    
+                      $messages3 = [
+                                                              
+                        'type' => 'template',
+                        'altText' => 'template',
+                        'template' => [
+                            'type' => 'buttons',
+                            //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
+                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format2,
+                            'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
+                            'actions' => [
+
+                                  [
+                                    'type' => 'uri',
+                                    'label' => 'ไปยังลิงค์',
+                                    'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
+                                  ],
+                                  [
+                                    'type' => 'message',
+                                    'label' => 'Nutrition',
+                                    'text' => 'Nutrition'
+                                    ]
+                                ]
+                              ]
+                            ];
+                   }else{
+                      
+                      $messages3 = [
+                                                              
+                        'type' => 'template',
+                        'altText' => 'template',
+                        'template' => [
+                            'type' => 'buttons',
+                            //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
+                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format,
+                            'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
+                            'actions' => [
+
+                                  [
+                                    'type' => 'uri',
+                                    'label' => 'ไปยังลิงค์',
+                                    'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
+                                  ],
+                                  [
+                                    'type' => 'message',
+                                    'label' => 'Nutrition',
+                                    'text' => 'Nutrition'
+                                    ]
+                                ]
+                              ]
+                            ];
+                  }
+
+                  /*รายละเอียดเด็กในครรภ์*/
                     if ($bmi>=24.9 ) {
                         
                         $messages = [
@@ -1395,62 +1453,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                       ];
                     }
                       
-/*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
-           
-                if ($preg_week >=13 && $preg_week<=40) {
-                  $a = $total+300;
-                  $format2 = number_format($a);    
-                      $messages3 = [
-                                                              
-                        'type' => 'template',
-                        'altText' => 'template',
-                        'template' => [
-                            'type' => 'buttons',
-                            //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
-                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format2,
-                            'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
-                            'actions' => [
 
-                                  [
-                                    'type' => 'uri',
-                                    'label' => 'ไปยังลิงค์',
-                                    'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
-                                  ],
-                                  [
-                                    'type' => 'message',
-                                    'label' => 'Nutrition',
-                                    'text' => 'Nutrition'
-                                    ]
-                                ]
-                              ]
-                            ];
-                   }else{
-                      
-                      $messages3 = [
-                                                              
-                        'type' => 'template',
-                        'altText' => 'template',
-                        'template' => [
-                            'type' => 'buttons',
-                            //'thumbnailImageUrl' => 'https://chatbot-nutrition-pregnant.herokuapp.com/week/'.$preg_week .'.jpg',
-                            'title' => 'จำนวนแคลอรี่ที่คุณต้องการต่อวันคือ '.$format,
-                            'text' =>  'รายละเอียดการรับประทานอาหารสามารถกดปุ่มด้านล่างได้เลยค่ะ',
-                            'actions' => [
-
-                                  [
-                                    'type' => 'uri',
-                                    'label' => 'ไปยังลิงค์',
-                                    'uri' => 'http://www.raipoong.com/content/detail.php?section=12&category=26&id=467'
-                                  ],
-                                  [
-                                    'type' => 'message',
-                                    'label' => 'Nutrition',
-                                    'text' => 'Nutrition'
-                                    ]
-                                ]
-                              ]
-                            ];
-                  }
         
 
 
