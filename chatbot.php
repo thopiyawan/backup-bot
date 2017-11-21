@@ -398,7 +398,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
- }elseif ($event['message']['text'] == "ครั้งสุดท้ายที่มีประจำเดือน" && $seqcode == "0015" ) {
+ }elseif ($event['message']['text'] == "ครั้งสุดท้ายที่มีประจำเดือน" /*&& $seqcode == "0015" */) {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1 ");
                 while ($row = pg_fetch_row($result)) {
                   echo $answer = $row[0]; 
@@ -418,7 +418,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
  
 ########################################################################################################################################################
 
-}elseif ($event['message']['text'] == "กำหนดการคลอด" && $seqcode == "0015") {
+}elseif ($event['message']['text'] == "กำหนดการคลอด"/* && $seqcode == "0015"*/) {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
                   echo $answer = $row[0]; 
