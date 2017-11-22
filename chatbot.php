@@ -1337,7 +1337,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                 if ($preg_week >=13 && $preg_week<=40) {
                   $a = $total+300;
                   $format2 = number_format($a);    
-                      $messages3 = [
+                      $messages = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1363,7 +1363,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                             ];
                    }else{
                       
-                      $messages3 = [
+                      $messages = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1392,7 +1392,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                   /*รายละเอียดเด็กในครรภ์*/
                     if ($bmi>=24.9 ) {
                         
-                        $messages = [
+                        $messages2 = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1416,14 +1416,14 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                                       ]
                                   ]
                               ];
-                          $messages2 = [
+                          $messages3 = [
                             'type' => 'text',
                             'text' => $ccc
                       ];
 
                     }else{
 
-                       $messages = [
+                       $messages2 = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1447,7 +1447,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                                       ]
                                   ]
                               ];
-                          $messages2 = [
+                          $messages3 = [
                             'type' => 'text',
                             'text' => $rec
                       ];
