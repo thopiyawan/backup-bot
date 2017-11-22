@@ -1140,7 +1140,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
       $format = number_format($total);
                
 
-  $check_q4 = pg_query($dbconn,"SELECT starches ,vegetables, fruits, meats, fats, lf_milk, c, p, f, g_protein  FROM meal_planing WHERE caloric_level <= $total");
+  $check_q4 = pg_query($dbconn,"SELECT starches ,vegetables, fruits, meats, fats, lf_milk, c, p, f, g_protein  FROM meal_planing ");
                 while ($row = pg_fetch_row($check_q4)) {
             
           //echo $caloric = $row[0]; 
