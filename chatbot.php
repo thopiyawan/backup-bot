@@ -1721,6 +1721,67 @@ $q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0026','{$u}','0027','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################### 
+}elseif ($event['message']['text'] == "น้ำหนักถูกต้อง" && $seqcode ='0017') {
+    $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($check_q)) {
+            
+                  echo $answer = $row[3];  
+                } 
+             
+    $check = pg_query($dbconn,"SELECT preg_week FROM recordofpregnancy WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
+            while ($row = pg_fetch_row($check)) {
+                echo  $p_week =  $row[0]+1;
+                } 
+    $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,$answer ,  NOW()) ") or die(pg_errormessage());  
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0000', '' ,'0000','0',NOW(),NOW())") or die(pg_errormessage()); 
+$replyToken = $event['replyToken'];
+                 $messages = [                            
+                                  'type' => 'template',
+                                  'altText' => 'template',
+                                  'template' => [
+                                      'type' => 'buttons',
+                                      'thumbnailImageUrl' => 'https://bottest14.herokuapp.com/week/'.$p_week .'.jpg',
+                                      'title' => 'ลูกน้อยของคุณ',
+                                      'text' =>  'อายุ'.$p_week .'สัปดาห์',
+                                      'actions' => [
+                                          // [
+                                          //     'type' => 'postback',
+                                          //     'label' => 'good',
+                                          //     'data' => 'value'
+                                          // ],
+                                          [
+                                              'type' => 'uri',
+                                              'label' => 'กราฟ',
+                                              'uri' => 'https://bottest14.herokuapp.com/graph.php?data='.$user_id
+                                          ]
+                                      ]
+                                  ]
+                              ]; 
+  }elseif (is_numeric($_msg) !== false && $seqcode == "0017"  )  {
+                 $weight =  $_msg;
+                 $weight_mes = 'สัปดาห์นี้คุณมีน้ำหนัก'.$weight.'กิโลกรัมถูกต้องหรือไม่คะ';
+                 $replyToken = $event['replyToken'];
+                 $messages = [
+                                'type' => 'template',
+                                'altText' => 'this is a confirm template',
+                                'template' => [
+                                    'type' => 'confirm',
+                                    'text' =>  $weight_mes ,
+                                    'actions' => [
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ถูกต้อง',
+                                            'text' => 'น้ำหนักถูกต้อง'
+                                        ],
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ไม่ถูกต้อง',
+                                            'text' => 'ไม่ถูกต้อง'
+                                        ],
+                                    ]
+                                 ]     
+                             ];   
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 
 }elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
