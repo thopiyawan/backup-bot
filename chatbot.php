@@ -1740,7 +1740,7 @@ $replyToken = $event['replyToken'];
                                   'altText' => 'template',
                                   'template' => [
                                       'type' => 'buttons',
-                                      'thumbnailImageUrl' => 'https://bottest14.herokuapp.com/week/'.$p_week .'.jpg',
+                                      'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
                                       'title' => 'ลูกน้อยของคุณ',
                                       'text' =>  'อายุ'.$p_week .'สัปดาห์',
                                       'actions' => [
@@ -1752,7 +1752,7 @@ $replyToken = $event['replyToken'];
                                           [
                                               'type' => 'uri',
                                               'label' => 'กราฟ',
-                                              'uri' => 'https://bottest14.herokuapp.com/graph.php?data='.$user_id
+                                              'uri' => 'https://backup-bot.herokuapp.com/graph.php?data='.$user_id
                                           ]
                                       ]
                                   ]
@@ -1783,7 +1783,7 @@ $replyToken = $event['replyToken'];
                              ];   
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1003', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
 
-
+########################################################################################################################################################
 }elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
     
      $replyToken = $event['replyToken'];
