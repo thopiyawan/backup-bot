@@ -1725,7 +1725,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
     $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q)) {
             
-                  echo $answer = $row[3];  
+                  echo $answer_weight = $row[3];  
                 } 
              
     $check = pg_query($dbconn,"SELECT preg_week FROM recordofpregnancy WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
@@ -1734,8 +1734,44 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                 } 
     $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,$answer ,  NOW()) ") or die(pg_errormessage());  
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0000', '' ,'0000','0',NOW(),NOW())") or die(pg_errormessage()); 
+
+
+    $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($check_q2)) {
+            
+                  echo $weight = $row[0]; 
+                  echo $height = $row[1]; 
+                  echo $preg_week = $row[2];
+                  echo $age = $row[3]; 
+                } 
+
+
+
+
+ /*คำนวณ BMI และบอกว่าอยู่ในเกณฑ์ไหน*/               
+          $height1 =$height*0.01;
+                  $bmi = $answer_weight/($height1*$height1);
+                  $bmi = number_format($bmi, 2, '.', '');
+
+        if ($bmi<18.5) {
+          $result="Underweight";
+        } elseif ($bmi>=18.5 && $bmi<24.9) {
+          $result="Nomal weight";
+        } elseif ($bmi>=24.9 && $bmi<=29.9) {
+          $result="Overweight";
+        }else{
+          $result="Obese";
+        }
+
+                 $ccc =  "น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกำลังกายดูไหมคะ". "\n".
+                          "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
+                 $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
+
+
+
+
 $replyToken = $event['replyToken'];
-                 $messages = [                            
+/*                 $messages = [                            
                                   'type' => 'template',
                                   'altText' => 'template',
                                   'template' => [
@@ -1752,11 +1788,82 @@ $replyToken = $event['replyToken'];
                                           [
                                               'type' => 'uri',
                                               'label' => 'กราฟ',
-                                              'uri' => 'https://backup-bot.herokuapp.com/graph.php?data='.$user_id
+                                              'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
                                           ]
                                       ]
                                   ]
-                              ]; 
+                              ]; */
+                  /*รายละเอียดเด็กในครรภ์*/
+                    if ($bmi>=24.9 ) {
+                        
+                        $messages2 = [
+                                                              
+                        'type' => 'template',
+                        'altText' => 'template',
+                        'template' => [
+                            'type' => 'buttons',
+                            'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
+                            'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
+                            'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
+                            'actions' => [
+
+                                   [
+                                    'type' => 'uri',
+                                    'label' => 'กราฟ',
+                                    'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+                                    ],
+                                  [
+                                    'type' => 'message',
+                                    'label' => 'ทารกในครรภ์',
+                                    'text' => 'ทารกในครรภ์'
+                                    ]
+                                      ]
+                                  ]
+                              ];
+                          $messages3 = [
+                            'type' => 'text',
+                            'text' => $ccc
+                      ];
+
+                    }else{
+
+                       $messages2 = [
+                                                              
+                        'type' => 'template',
+                        'altText' => 'template',
+                        'template' => [
+                            'type' => 'buttons',
+                            'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
+                            'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
+                            'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
+                            'actions' => [
+
+                                   [
+                                    'type' => 'uri',
+                                    'label' => 'กราฟ',
+                                    'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+                                    ],
+                                  [
+                                    'type' => 'message',
+                                    'label' => 'ทารกในครรภ์',
+                                    'text' => 'ทารกในครรภ์'
+                                    ]
+                                      ]
+                                  ]
+                              ];
+                          $messages3 = [
+                            'type' => 'text',
+                            'text' => $rec
+                      ];
+                    }
+                      
+
+
+
+
+########################################################################################################################################################
+
+
   }elseif (is_numeric($_msg) !== false && $seqcode == "1003"  )  {
                  $weight =  $_msg;
                  $weight_mes = 'สัปดาห์นี้คุณมีน้ำหนัก'.$weight.'กิโลกรัมถูกต้องหรือไม่คะ';
