@@ -1794,7 +1794,7 @@ $replyToken = $event['replyToken'];
 
 ########################################################################################################################################################
 }else{
-  ($event['type'] == 'message' && $event['message']['type'] == 'text')
+  // ($event['type'] == 'message' && $event['message']['type'] == 'text')
     
      $replyToken = $event['replyToken'];
       $text = "ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ";
