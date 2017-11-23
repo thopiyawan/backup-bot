@@ -1736,46 +1736,46 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0000', '' ,'0000','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 
-    $check_q2 = pg_query($dbconn,"SELECT user_height FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($check_q2)) {
+ //    $check_q2 = pg_query($dbconn,"SELECT user_height FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
+ //                while ($row = pg_fetch_row($check_q2)) {
             
-                  echo $height = $row[0]; 
-                } 
+ //                  echo $height = $row[0]; 
+ //                } 
 
 
 
 
- /*คำนวณ BMI และบอกว่าอยู่ในเกณฑ์ไหน*/               
-          $height1 =$height*0.01;
-                  $bmi = $answer_weight/($height1*$height1);
-                  $bmi = number_format($bmi, 2, '.', '');
+ // /*คำนวณ BMI และบอกว่าอยู่ในเกณฑ์ไหน*/               
+ //          $height1 =$height*0.01;
+ //                  $bmi = $answer_weight/($height1*$height1);
+ //                  $bmi = number_format($bmi, 2, '.', '');
 
-        if ($bmi<18.5) {
-          $result="Underweight";
-        } elseif ($bmi>=18.5 && $bmi<24.9) {
-          $result="Nomal weight";
-        } elseif ($bmi>=24.9 && $bmi<=29.9) {
-          $result="Overweight";
-        }else{
-          $result="Obese";
-        }
+ //        if ($bmi<18.5) {
+ //          $result="Underweight";
+ //        } elseif ($bmi>=18.5 && $bmi<24.9) {
+ //          $result="Nomal weight";
+ //        } elseif ($bmi>=24.9 && $bmi<=29.9) {
+ //          $result="Overweight";
+ //        }else{
+ //          $result="Obese";
+ //        }
 
-                 $ccc =  "น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกำลังกายดูไหมคะ". "\n".
-                          "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
-                 $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
+ //                 $ccc =  "น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกำลังกายดูไหมคะ". "\n".
+ //                          "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
+ //                 $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
 
 
 
 
 $replyToken = $event['replyToken'];
-/*                 $messages = [                            
+                 $messages = [                            
                                   'type' => 'template',
                                   'altText' => 'template',
                                   'template' => [
                                       'type' => 'buttons',
                                       'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
-                                      'title' => 'ลูกน้อยของคุณ',
-                                      'text' =>  'อายุ'.$p_week .'สัปดาห์',
+                                      'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
+                                      //'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
                                       'actions' => [
                                           // [
                                           //     'type' => 'postback',
@@ -1789,88 +1789,88 @@ $replyToken = $event['replyToken'];
                                           ]
                                       ]
                                   ]
-                              ]; */
+                              ]; 
                   /*รายละเอียดเด็กในครรภ์*/
-                    if ($bmi>=24.9 ) {
+         //            if ($bmi>=24.9 ) {
                         
-                        $messages = [
+         //                $messages = [
                                                               
-                        'type' => 'template',
-                        'altText' => 'template',
-                        'template' => [
-                            'type' => 'buttons',
-                            'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
-                            'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
-                            'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
-                            'actions' => [
+         //                'type' => 'template',
+         //                'altText' => 'template',
+         //                'template' => [
+         //                    'type' => 'buttons',
+         //                    'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
+         //                    'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
+         //                    'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
+         //                    'actions' => [
 
-                                   [
-                                    'type' => 'uri',
-                                    'label' => 'กราฟ',
-                                    'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
-                                    ],
-                                  [
-                                    'type' => 'message',
-                                    'label' => 'ทารกในครรภ์',
-                                    'text' => 'ทารกในครรภ์'
-                                    ]
-                                      ]
-                                  ]
-                              ];
-                          $messages2 = [
-                            'type' => 'text',
-                            'text' => $ccc
-                      ];
+         //                           [
+         //                            'type' => 'uri',
+         //                            'label' => 'กราฟ',
+         //                            'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+         //                            ],
+         //                          [
+         //                            'type' => 'message',
+         //                            'label' => 'ทารกในครรภ์',
+         //                            'text' => 'ทารกในครรภ์'
+         //                            ]
+         //                              ]
+         //                          ]
+         //                      ];
+         //                  $messages2 = [
+         //                    'type' => 'text',
+         //                    'text' => $ccc
+         //              ];
 
-                    }else{
+         //            }else{
 
-                       $messages = [
+         //               $messages = [
                                                               
-                        'type' => 'template',
-                        'altText' => 'template',
-                        'template' => [
-                            'type' => 'buttons',
-                            'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
-                            'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
-                            'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
-                            'actions' => [
+         //                'type' => 'template',
+         //                'altText' => 'template',
+         //                'template' => [
+         //                    'type' => 'buttons',
+         //                    'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
+         //                    'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
+         //                    'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
+         //                    'actions' => [
 
-                                   [
-                                    'type' => 'uri',
-                                    'label' => 'กราฟ',
-                                    'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
-                                    ],
-                                  [
-                                    'type' => 'message',
-                                    'label' => 'ทารกในครรภ์',
-                                    'text' => 'ทารกในครรภ์'
-                                    ]
-                                      ]
-                                  ]
-                              ];
-                          $messages2 = [
-                            'type' => 'text',
-                            'text' => $rec
-                      ];
-                    }
+         //                           [
+         //                            'type' => 'uri',
+         //                            'label' => 'กราฟ',
+         //                            'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+         //                            ],
+         //                          [
+         //                            'type' => 'message',
+         //                            'label' => 'ทารกในครรภ์',
+         //                            'text' => 'ทารกในครรภ์'
+         //                            ]
+         //                              ]
+         //                          ]
+         //                      ];
+         //                  $messages2 = [
+         //                    'type' => 'text',
+         //                    'text' => $rec
+         //              ];
+         //            }
                       
-         $url = 'https://api.line.me/v2/bot/message/reply';
-         $data = [
-          'replyToken' => $replyToken,
-          'messages' => [$messages,$messages2],
-         ];
-         error_log(json_encode($data));
-         $post = json_encode($data);
-         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-         $ch = curl_init($url);
-         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-         $result = curl_exec($ch);
-         curl_close($ch);
-         echo $result . "\r\n"; 
+         // $url = 'https://api.line.me/v2/bot/message/reply';
+         // $data = [
+         //  'replyToken' => $replyToken,
+         //  'messages' => [$messages,$messages2],
+         // ];
+         // error_log(json_encode($data));
+         // $post = json_encode($data);
+         // $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         // $ch = curl_init($url);
+         // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         // curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         // $result = curl_exec($ch);
+         // curl_close($ch);
+         // echo $result . "\r\n"; 
 
 
 
