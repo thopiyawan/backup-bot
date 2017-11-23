@@ -1721,7 +1721,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0026','{$u}','0027','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################### 
-}elseif ($event['message']['text'] == "น้ำหนักถูกต้อง" && $seqcode ='0017') {
+}elseif ($event['message']['text'] == "น้ำหนักถูกต้อง" && $seqcode ='1003') {
     $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q)) {
             
@@ -1757,7 +1757,7 @@ $replyToken = $event['replyToken'];
                                       ]
                                   ]
                               ]; 
-  }elseif (is_numeric($_msg) !== false && $seqcode == "0017"  )  {
+  }elseif (is_numeric($_msg) !== false && $seqcode == "1003"  )  {
                  $weight =  $_msg;
                  $weight_mes = 'สัปดาห์นี้คุณมีน้ำหนัก'.$weight.'กิโลกรัมถูกต้องหรือไม่คะ';
                  $replyToken = $event['replyToken'];
@@ -1781,7 +1781,7 @@ $replyToken = $event['replyToken'];
                                     ]
                                  ]     
                              ];   
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1003', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 
 }elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
