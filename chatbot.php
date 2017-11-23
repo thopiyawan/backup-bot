@@ -1793,8 +1793,8 @@ $replyToken = $event['replyToken'];
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1003', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 ########################################################################################################################################################
-}else{
-  // ($event['type'] == 'message' && $event['message']['type'] == 'text')
+}elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
+   
     
      $replyToken = $event['replyToken'];
       $text = "ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ";
