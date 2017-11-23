@@ -1736,13 +1736,10 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0000', '' ,'0000','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 
-    $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
+    $check_q2 = pg_query($dbconn,"SELECT user_height FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q2)) {
             
-                  echo $weight = $row[0]; 
-                  echo $height = $row[1]; 
-                  echo $preg_week = $row[2];
-                  echo $age = $row[3]; 
+                  echo $height = $row[0]; 
                 } 
 
 
