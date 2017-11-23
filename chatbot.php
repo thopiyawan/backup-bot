@@ -1775,7 +1775,7 @@ $replyToken = $event['replyToken'];
                                       'type' => 'buttons',
                                       'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
                                       'title' => 'ลูกน้อยของคุณ',
-                                      'text' =>  'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
+                                      'text' =>  'อายุ'.$p_week .'สัปดาห์',
                                       'actions' => [
                                           // [
                                           //     'type' => 'postback',
@@ -1790,6 +1790,7 @@ $replyToken = $event['replyToken'];
                                       ]
                                   ]
                               ]; 
+
                   /*รายละเอียดเด็กในครรภ์*/
          //            if ($bmi>=24.9 ) {
                         
