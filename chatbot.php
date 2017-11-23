@@ -1649,7 +1649,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 
 
-          $url = 'https://api.line.me/v2/bot/message/reply';
+         $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
           'replyToken' => $replyToken,
           'messages' => [$messages,$messages2,$messages3],
@@ -1793,7 +1793,7 @@ $replyToken = $event['replyToken'];
                   /*รายละเอียดเด็กในครรภ์*/
                     if ($bmi>=24.9 ) {
                         
-                        $messages2 = [
+                        $messages = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1817,14 +1817,14 @@ $replyToken = $event['replyToken'];
                                       ]
                                   ]
                               ];
-                          $messages3 = [
+                          $messages2 = [
                             'type' => 'text',
                             'text' => $ccc
                       ];
 
                     }else{
 
-                       $messages2 = [
+                       $messages = [
                                                               
                         'type' => 'template',
                         'altText' => 'template',
@@ -1848,12 +1848,30 @@ $replyToken = $event['replyToken'];
                                       ]
                                   ]
                               ];
-                          $messages3 = [
+                          $messages2 = [
                             'type' => 'text',
                             'text' => $rec
                       ];
                     }
                       
+         $url = 'https://api.line.me/v2/bot/message/reply';
+         $data = [
+          'replyToken' => $replyToken,
+          'messages' => [$messages,$messages2],
+         ];
+         error_log(json_encode($data));
+         $post = json_encode($data);
+         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         $ch = curl_init($url);
+         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         $result = curl_exec($ch);
+         curl_close($ch);
+         echo $result . "\r\n"; 
+
 
 
 
