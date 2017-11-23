@@ -1774,8 +1774,8 @@ $replyToken = $event['replyToken'];
                                   'template' => [
                                       'type' => 'buttons',
                                       'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
-                                      'title' => 'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
-                                      //'text' =>  'ค่าดัชนีมวลกายของคุณคือ '.$bmi. ' อยู่ในเกณฑ์ '.$result,
+                                      'title' => 'ลูกน้อยของคุณ',
+                                      'text' =>  'ขณะนี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์',
                                       'actions' => [
                                           // [
                                           //     'type' => 'postback',
