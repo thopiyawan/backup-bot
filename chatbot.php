@@ -1443,7 +1443,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                                   [
                                     'type' => 'message',
                                     'label' => 'Nutrition',
-                                    'text' => 'Nutrition'
+                                    'text' => 'ข้อมูลโภชนาการ'
                                     ]
                                 ]
                               ]
