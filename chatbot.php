@@ -1721,7 +1721,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0026','{$u}','0027','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################### 
-}elseif ($event['message']['text'] == "น้ำหนักถูกต้อง" && $seqcode ='1003') {
+}elseif ($event['message']['text'] == "น้ำหนักถูกต้อง" /*&& $seqcode ='1003'*/) {
     $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q)) {
             
@@ -1800,8 +1800,6 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
           'type' => 'text',
           'text' => $text
         ]; 
-
-
 
 ########################################################################################################################################################
 
