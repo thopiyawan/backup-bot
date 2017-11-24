@@ -111,7 +111,7 @@ id SERIAL,
 user_id  varchar(50),
 food varchar(255),
 exercise varchar(255),
-exercise varchar(100),
+vitamin varchar(100),
 updated_at timestamp,
 -- his_preg_wc varchar(225)
  PRIMARY KEY(id)
