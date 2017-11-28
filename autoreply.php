@@ -26,7 +26,7 @@ for($x = 0; $x <= $arrlength ; $x++) {
                         'type' => 'text',
                         'text' => 'ลูกของคุณคลอดแล้ว~'
                      ];
-/*             $url = 'https://api.line.me/v2/bot/message/push';
+                             $url = 'https://api.line.me/v2/bot/message/push';
              $data = [
               'to' => $userid ,
               'messages' => [$messages1],
@@ -42,16 +42,33 @@ for($x = 0; $x <= $arrlength ; $x++) {
              curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
              $result = curl_exec($ch);
              curl_close($ch);
-             echo $result . "\r\n";*/
+             echo $result . "\r\n";
         }else{
  
                 $messages1 = [
                                 'type' => 'text',
-                                'text' => 'วันนี้คุณทานอะไรไปบ้างคะ?'
+                                'text' => 'สัปดาห์นี้คุณมีอายุครรภ์'.$p_week.'สัปดาห์แล้วนะคะ'
                              ];
-
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001','','0000','0',NOW(),NOW())") or die(pg_errormessage()); 
-/*                // $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,'0',  NOW()) ") or die(pg_errormessage());        
+                $messages2 = [ 'type'=> 'image',
+                               'originalContentUrl'=> 'https://backup-bot.herokuapp.com/week/'.$p_week.'.jpg',
+                               'previewImageUrl'=> 'https://backup-bot.herokuapp.com/week/'.$p_week.'.jpg'
+                             ];
+              
+                $des_preg = pg_query($dbconn,"SELECT  descript FROM pregnants WHERE  week = $p_week   ");
+                      while ($row = pg_fetch_row($des_preg)) {
+                          echo $des = $row[0];
+         
+                        } 
+                $messages3 = [
+                                'type' => 'text',
+                                'text' =>  $des
+                             ];
+                $messages4 = [
+                                'type' => 'text',
+                                'text' => 'สัปดาห์นี้คุณแม่มีน้ำหนักเท่าไรแล้วคะ?'
+                             ];
+                $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1003','','0000','0',NOW(),NOW())") or die(pg_errormessage()); 
+                // $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,'0',  NOW()) ") or die(pg_errormessage());        
                      
                  $url = 'https://api.line.me/v2/bot/message/push';
                  $data = [
@@ -69,27 +86,8 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
                  $result = curl_exec($ch);
                  curl_close($ch);
-                 echo $result . "\r\n";*/
+                 echo $result . "\r\n";
         }
 }
-  // Make a POST Request to Messaging API to reply to sender
-         $url = 'https://api.line.me/v2/bot/message/reply';
-         // $url2 = 'https://api.line.me/v2/bot/message/reply';
-         $data = [
-          'replyToken' => $replyToken,
-          'messages' => [$messages],
-         ];
-         error_log(json_encode($data));
-         $post = json_encode($data);
-         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-         $ch = curl_init($url);
-         // $ch2 = curl_init($url2);
-         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-         $result = curl_exec($ch);
-         curl_close($ch);
-         echo $result . "\r\n"; 
+ 
 ?>
