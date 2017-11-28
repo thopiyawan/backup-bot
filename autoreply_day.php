@@ -17,7 +17,7 @@ $arrlength = count($s);
 for($x = 0; $x <= $arrlength ; $x++) {
        $userid = $s[0][$x];
        $user_id = pg_escape_string($userid);
-       $check = pg_query($dbconn,"SELECT answer FROM sequentsteps WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
+       $check = pg_query($dbconn,"SELECT answer FROM sequentsteps WHERE sender_id = '{$user_id}' order by updated_at desc limit 1 ");
             while ($row = pg_fetch_row($check)) {
                 echo  $code =  $row[0];
                 } 
