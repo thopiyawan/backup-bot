@@ -1417,6 +1417,8 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                  $ccc =  "น้ำหนักจองคุณเกินเกณฑ์ ลองปรับการรับประทานอาหารหรือออกกำลังกายดูไหมคะ". "\n".
                           "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
                  $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนูกิจกรรมด้านล่างได้เลยนะคะ";
+
+                 $sel = "ต่อจากนี้ทางเราจะมีการส่งข้อความมาเพื่อแจ้งเตือนการรับประทานวิตามินและอาหารให้คุณทุกวันเวลา 19.00 น. หากคุณต้องการรับข้อความกรุณากดยืนยันด้วยค่ะ"
                   $replyToken = $event['replyToken'];
   
 /*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
@@ -1508,6 +1510,27 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                             'text' => $ccc
                       ];
 
+                       $messages4 = [
+                      'type' => 'template',
+                      'altText' => 'this is a confirm template',
+                      'template' => [
+                          'type' => 'confirm',
+                          'text' =>'คุณมีประวัติการแพ้ยาไหมคะ?' ,
+                          'actions' => [
+                              [
+                                  'type' => 'message',
+                                  'label' => 'แจ้งเตือน',
+                                  'text' => 'แจ้งเตือน'
+                              ],
+                              [
+                                  'type' => 'message',
+                                  'label' => 'ไม่แจ้งเตือน',
+                                  'text' => 'ไม่แจ้งเตือน'
+                              ],
+                          ]
+                      ]
+                  ];        
+
                     }else{
 
                        $messages2 = [
@@ -1538,6 +1561,27 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                             'type' => 'text',
                             'text' => $rec
                       ];
+
+                        $messages4 = [
+                      'type' => 'template',
+                      'altText' => 'this is a confirm template',
+                      'template' => [
+                          'type' => 'confirm',
+                          'text' =>'คุณมีประวัติการแพ้ยาไหมคะ?' ,
+                          'actions' => [
+                              [
+                                  'type' => 'message',
+                                  'label' => 'แจ้งเตือน',
+                                  'text' => 'แจ้งเตือน'
+                              ],
+                              [
+                                  'type' => 'message',
+                                  'label' => 'ไม่แจ้งเตือน',
+                                  'text' => 'ไม่แจ้งเตือน'
+                              ],
+                          ]
+                      ]
+                  ]; 
                     }
                       
 
@@ -1548,7 +1592,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
     $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
           'replyToken' => $replyToken,
-          'messages' => [$messages,$messages2,$messages3],
+          'messages' => [$messages,$messages2,$messages3ม$messages4],
          ];
          error_log(json_encode($data));
          $post = json_encode($data);
