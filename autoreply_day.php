@@ -17,14 +17,14 @@ $arrlength = count($s);
 for($x = 0; $x <= $arrlength ; $x++) {
        $userid = $s[0][$x];
        $user_id = pg_escape_string($userid);
-       $check = pg_query($dbconn,"SELECT preg_week FROM recordofpregnancy WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
+       $check = pg_query($dbconn,"SELECT answer FROM sequentsteps WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
             while ($row = pg_fetch_row($check)) {
-                echo  $p_week =  $row[0]+1;
+                echo  $code =  $row[0];
                 } 
-        if($p_week>41){
+        if($code==2000){
            $messages1 = [
                         'type' => 'text',
-                        'text' => 'ลูกของคุณคลอดแล้ว~'
+                        'text' => 'ไว้โอกาสหน้าให้เราได้เป็นผู้ช่วยของคุณนะคะ^^'
                      ];
 /*             $url = 'https://api.line.me/v2/bot/message/push';
              $data = [
