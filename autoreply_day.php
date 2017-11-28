@@ -77,7 +77,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
          // $url2 = 'https://api.line.me/v2/bot/message/reply';
          $data = [
           'replyToken' => $replyToken,
-          'messages' => [$messages],
+          'messages' => [$messages1],
          ];
          error_log(json_encode($data));
          $post = json_encode($data);
