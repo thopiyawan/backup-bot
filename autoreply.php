@@ -24,7 +24,7 @@ for($x = 0; $x <= $arrlength ; $x++) {
         if($p_week>41){
            $messages1 = [
                         'type' => 'text',
-                        'text' => 'ลูกของคุณคลอดแล้ว~'
+                        'text' => 'ถึงกำหนดการคลอดแล้ว~'
                      ];
                              $url = 'https://api.line.me/v2/bot/message/push';
              $data = [
